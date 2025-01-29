@@ -1,0 +1,15 @@
+[
+	{
+		"agent": "apollo",
+		"bof_command": "execute_coff",
+		"bof_file_parameter_name": "bof_file",
+		"bof_argument_array_parameter_name": "coff_arguments",
+		"bof_entrypoint_parameter_name": "function_name",
+		"inline_assembly_command": "inline_assembly",
+		"inline_assembly_file_parameter_name": "assembly_file",
+		"inline_assembly_argument_parameter_name": "assembly_arguments",
+		"execute_assembly_command": "execute_assembly",
+		"execute_assembly_file_parameter_name": "assembly_file",
+		"execute_assembly_argument_parameter_name": "assembly_arguments"
+	}
+]

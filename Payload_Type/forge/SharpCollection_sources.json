@@ -1,0 +1,563 @@
+[
+  {
+    "name": "ADCSPwn",
+    "command_name": "ADCSPwn",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to escalate privileges in an active directory network by coercing authenticate from machine accounts and relaying to the certificate service. @bats3c"
+  },
+  {
+    "name": "ADCollector",
+    "command_name": "ADCollector",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to quickly extract valuable information from the Active Directory environment @dev-2null"
+  },
+  {
+    "name": "ADSearch",
+    "command_name": "ADSearch",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to help query AD via the LDAP protocol @tomcarver16 (Only NET 4.7)"
+  },
+  {
+    "name": "ADFSDump",
+    "command_name": "ADFSDump",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "A C# tool to dump all sorts of goodies from AD FS. @FireEye"
+  },
+  {
+    "name": "AtYourService",
+    "command_name": "AtYourService",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# .NET Assembly for Service Enumeration @mitchmoser"
+  },
+  {
+    "name": "BetterSafetyKatz",
+    "command_name": "BetterSafetyKatz",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Fork of SafetyKatz dynamically fetches the latest Mimikatz, runtime patching signatures and PE loads Mimikatz into memory. @Flangvik"
+  },
+  {
+    "name": "Certify",
+    "command_name": "Certify",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to enumerate and abuse misconfigurations in Active Directory Certificate Services (AD CS). @harmj0y @tifkin_"
+  },
+  {
+    "name": "DeployPrinterNightmare",
+    "command_name": "DeployPrinterNightmare",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool for installing a shared network printer abusing the PrinterNightmare bug to allow other network machines easy privesc @Flangvik"
+  },
+  {
+    "name": "EDD",
+    "command_name": "EDD",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Enumerate Domain Data is designed to be similar to PowerView but in .NET @FortyNorthSecurity"
+  },
+  {
+    "name": "ForgeCert",
+    "command_name": "ForgeCert",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "uses a stolen CA certificate + private key to forge certificates for arbitrary users. @tifkin_"
+  },
+  {
+    "name": "Grouper2",
+    "command_name": "Grouper2",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to help find security-related misconfigurations in Active Directory Group Policy. @mikeloss"
+  },
+  {
+    "name": "Group3r",
+    "command_name": "Group3r",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to find vulnerabilities in AD Group Policy, but do it better than Grouper2 did. @mikeloss"
+  },
+  {
+    "name": "KrbRelay",
+    "command_name": "KrbRelay",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# Framework for Kerberos relaying @cube0x0"
+  },
+  {
+    "name": "KrbRelayUp",
+    "command_name": "KrbRelayUp",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "universal no-fix local privilege escalation in windows domain environments where LDAP signing is not enforced @dec0ne"
+  },
+  {
+    "name": "Inveigh",
+    "command_name": "Inveigh",
+    "repo_url": "https://github.com/Flangvik/SharpCollection"
+  },
+  {
+    "name": "LockLess",
+    "command_name": "LockLess",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Allows for the copying of locked files. @GhostPack"
+  },
+  {
+    "name": "Moriarty",
+    "command_name": "Moriarty",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Enumerate missing KBs, detect various vulnerabilities, and suggest potential exploits for Privilege Escalation in Windows"
+  },
+  {
+    "name": "PassTheCert",
+    "command_name": "PassTheCert",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Proof-of-Concept tool to authenticate to an LDAP/S server with a certificate through Schannel. @AlmondOffSec"
+  },
+  {
+    "name": "PurpleSharp",
+    "command_name": "PurpleSharp",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# adversary simulation tool that executes adversary techniques with the purpose of generating attack telemetry in monitored Windows environments. @mvelazc0"
+  },
+  {
+    "name": "Rubeus",
+    "command_name": "Rubeus",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# toolset for raw Kerberos interaction and abuses. @GhostPack"
+  },
+  {
+    "name": "_RunAsCs",
+    "command_name": "RunAs",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Csharp and open version of windows builtin runas.exe. @splinter_code"
+  },
+  {
+    "name": "SafetyKatz",
+    "command_name": "SafetyKatz",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Combination of slightly modified version of @gentilkiwi's Mimikatz project and @subTee's .NET PE Loader. @GhostPack"
+  },
+  {
+    "name": "SauronEye",
+    "command_name": "SauronEye",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# search tool find specific files containing specific keywords (.doc, .docx, .xls, .xlsx). @_vivami"
+  },
+  {
+    "name": "SearchOutlook",
+    "command_name": "SearchOutlook",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to search through a running instance of Outlook for keywords @RedLectroid"
+  },
+  {
+    "name": "Seatbelt",
+    "command_name": "Seatbelt",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Performs a number of security oriented host-survey \"safety checks\". @GhostPack"
+  },
+  {
+    "name": "scout",
+    "command_name": "Scout",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": " A .NET assembly for performing recon against hosts on a network . @jaredhaight"
+  },
+  {
+    "name": "ShadowSpray",
+    "command_name": "ShadowSpray",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "A tool to spray Shadow Credentials across an entire domain in hopes of abusing long forgotten GenericWrite/GenericAll DACLs over other objects in the domain."
+  },
+  {
+    "name": "SharPersist",
+    "command_name": "SharPersist",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# persistence toolkit."
+  },
+  {
+    "name": "Sharp-SMBExec",
+    "command_name": "Sharp-SMBExec",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "A native C# conversion of Kevin Robertsons Invoke-SMBExec powershell script @checkymander"
+  },
+  {
+    "name": "SharpAllowedToAct",
+    "command_name": "SharpAllowedToAct",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# implementation of a computer object takeover through Resource-Based Constrained Delegation (msDS-AllowedToActOnBehalfOfOtherIdentity) @pkb1s"
+  },
+  {
+    "name": "SharpAppLocker",
+    "command_name": "SharpAppLocker",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# port of the Get-AppLockerPolicy PS cmdlet with extended features @Flangvik"
+  },
+  {
+    "name": "SharpBlock",
+    "command_name": "SharpBlock",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "A method of bypassing EDR's active projection DLL's by preventing entry point exection. @CCob"
+  },
+  {
+    "name": "SharpBypassUAC",
+    "command_name": "SharpBypassUAC",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool for UAC bypasses @rodzianko"
+  },
+  {
+    "name": "SharpCOM",
+    "command_name": "SharpCOM",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# port of Invoke-DCOM @424f424f"
+  },
+  {
+    "name": "SharpChisel",
+    "command_name": "SharpChisel",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# Chisel Wrapper. @shantanu561993"
+  },
+  {
+    "name": "SharpChrome",
+    "command_name": "SharpChrome",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Chrome-specific implementation of SharpDPAPI capable of cookies and logins decryption/triage. @GhostPack"
+  },
+  {
+    "name": "SharpChromium",
+    "command_name": "SharpChromium",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# Project to retrieve Chromium data, such as cookies, history and saved logins. @djhohnstein"
+  },
+  {
+    "name": "SharpCloud",
+    "command_name": "SharpCloud",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Simple C# for checking for the existence of credential files related to AWS, Microsoft Azure, and Google Compute. @chrismaddalena"
+  },
+  {
+    "name": "SharpCookieMonster",
+    "command_name": "SharpCookieMonster",
+    "repo_url": "https://github.com/Flangvik/SharpCollection"
+  },
+  {
+    "name": "SharpCrashEventLog",
+    "command_name": "SharpCrashEventLog",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# port of LogServiceCrash @slyd0g @limbenjamin"
+  },
+  {
+    "name": "SharpDPAPI",
+    "command_name": "SharpDPAPI",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# port of some Mimikatz DPAPI functionality. @GhostPack"
+  },
+  {
+    "name": "SharpDir",
+    "command_name": "SharpDir",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to search both local and remote file systems for files. @jnqpblc"
+  },
+  {
+    "name": "SharpDoor",
+    "command_name": "SharpDoor",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to allow multiple RDP (Remote Desktop) sessions by patching termsrv.dll file. @infosecn1nja"
+  },
+  {
+    "name": "SharpDump",
+    "command_name": "SharpDump",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "SharpDump is a C# port of PowerSploit's Out-Minidump.ps1 functionality. @GhostPack"
+  },
+  {
+    "name": "SharpEDRChecker",
+    "command_name": "SharpEDRChecker",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to check for the presence of known defensive products such as AV's, EDR's and logging tools @PwnDexter"
+  },
+  {
+    "name": "SharpExec",
+    "command_name": "SharpExec",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "SharpExec is an offensive security C# tool designed to aid with lateral movement. @anthemtotheego"
+  },
+  {
+    "name": "SharpFiles",
+    "command_name": "SharpFiles",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to search for files based on SharpShares output. @fullmetalcache"
+  },
+  {
+    "name": "SharpFinder",
+    "command_name": "SharpFinder",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Searches for files matching specific criteria on readable shares within the domain"
+  },
+  {
+    "name": "SharpGPOAbuse",
+    "command_name": "SharpGPOAbuse",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "SharpGPOAbuse is a .NET application written in C# that can be used to take advantage of a user's edit rights on a Group Policy Object (GPO). @FSecureLABS"
+  },
+  {
+    "name": "SharpHandler",
+    "command_name": "SharpHandler",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool for stealing/duping handles to LSASS @Jean_Maes_1994"
+  },
+  {
+    "name": "SharpHose",
+    "command_name": "SharpHose",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Asynchronous Password Spraying Tool in C# for Windows Environments . @ustayready"
+  },
+  {
+    "name": "SharpHound",
+    "command_name": "SharpHound",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# 2022 version of the BloodHound 4.x Ingestor. @BloodHoundAD"
+  },
+  {
+    "name": "SharpKatz",
+    "command_name": "SharpKatz",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "PURE C# port of significant MimiKatz functionality such as logonpasswords, dcsync, etc. @b4rtik"
+  },
+  {
+    "name": "SharpKiller",
+    "command_name": "SharpKiller",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Lifetime AMSI bypass by @ZeroMemoryEx ported to .NET Framework 4.8 @S1lky_1337"
+  },
+  {
+    "name": "SharpLAPS",
+    "command_name": "SharpLAPS",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "A C# tool to retrieve LAPS passwords from LDAP @pentest_swissky"
+  },
+  {
+    "name": "SharpMapExec",
+    "command_name": "SharpMapExec",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# version of @byt3bl33d3r's tool CrackMapExec @cube0x0"
+  },
+  {
+    "name": "SharpMiniDump",
+    "command_name": "SharpMiniDump",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to Create a minidump of the LSASS process from memory @b4rtik"
+  },
+  {
+    "name": "SharpNoPSExec",
+    "command_name": "SharpNoPSExec",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool allowing file less command execution for lateral movement. @juliourena"
+  },
+  {
+    "name": "SharpMove",
+    "command_name": "SharpMove",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool for performing lateral movement techniques @0xthirteen"
+  },
+  {
+    "name": "SharpPrinter",
+    "command_name": "SharpPrinter",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool for discovering Printers on an network @424f424f"
+  },
+  {
+    "name": "SharpRDP",
+    "command_name": "SharpRDP",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# Remote Desktop Protocol Console Application for Authenticated Command Execution @0xthirteen"
+  },
+  {
+    "name": "SharpNamedPipePTH",
+    "command_name": "SharpNamedPipePTH",
+    "repo_url": "https://github.com/Flangvik/SharpCollection"
+  },
+  {
+    "name": "SharpReg",
+    "command_name": "SharpReg",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to interact with the Remote Registry service api. @jnqpblc"
+  },
+  {
+    "name": "SharpSQLPwn",
+    "command_name": "SharpSQLPwn",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to identify and exploit weaknesses within MSSQL instances in Active Directory environments. @lefayjey"
+  },
+  {
+    "name": "SharpSearch",
+    "command_name": "SharpSearch",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# Project to quickly filter through a file share for targeted files for desired information. @djhohnstein"
+  },
+  {
+    "name": "SharpSecDump",
+    "command_name": "SharpSecDump",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# port of the remote SAM + LSA Secrets dumping functionality of impacket's secretsdump.py @G0ldenGunSec"
+  },
+  {
+    "name": "SharpSCCM",
+    "command_name": "SharpSCCM",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# utility for interacting with SCCM @_Mayyhem"
+  },
+  {
+    "name": "SharpShares",
+    "command_name": "SharpShares",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Enumerate all network shares in the current domain. @djhohnstein"
+  },
+  {
+    "name": "SharpSphere",
+    "command_name": "SharpSphere",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# SharpSphere has the ability to interact with the guest operating systems of virtual machines managed by vCenter. @jkcoote & @grzryc"
+  },
+  {
+    "name": "SharpSniper",
+    "command_name": "SharpSniper",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "SharpSniper is a simple tool to find the IP address of these users so that you can target their box. @hunniccyber"
+  },
+  {
+    "name": "SharpSpray",
+    "command_name": "SharpSpray",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to perform a password spraying attack against all users of a domain using LDAP. @jnqpblc"
+  },
+  {
+    "name": "SharpStay",
+    "command_name": "SharpStay",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": ".NET project for installing Persistence. @0xthirteen"
+  },
+  {
+    "name": "SharpSvc",
+    "command_name": "SharpSvc",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to interact with the SC Manager API. @jnqpblc (Only NET 4.7)"
+  },
+  {
+    "name": "SharpTask",
+    "command_name": "SharpTask",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool to interact with the Task Scheduler service api. @jnqpblc"
+  },
+  {
+    "name": "SharpTokenFinder",
+    "command_name": "SharpTokenFinder",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# implementation of TokenFinder. Steal M365 access tokens from Office Desktop apps"
+  },
+  {
+    "name": "SharpUp",
+    "command_name": "SharpUp",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# port of various PowerUp functionality. @GhostPack"
+  },
+  {
+    "name": "SharpView",
+    "command_name": "SharpView",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# implementation of harmj0y's PowerView. @tevora-threat"
+  },
+  {
+    "name": "SharpWMI",
+    "command_name": "SharpWMI",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# implementation of various WMI functionality. @GhostPack"
+  },
+  {
+    "name": "SharpWebServer",
+    "command_name": "SharpWebServer",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "A Red Team oriented simple HTTP & WebDAV server written in C# with functionality to capture Net-NTLM hashes. @mariuszbit"
+  },
+  {
+    "name": "SharpWifiGrabber",
+    "command_name": "SharpWifiGrabber",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Sharp Wifi Password Grabber retrieves in clear-text the Wi-Fi Passwords from all WLAN Profiles saved on a workstation. @r3n_hat"
+  },
+  {
+    "name": "SharpZeroLogon",
+    "command_name": "SharpZeroLogon",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# port of CVE-2020-1472 , a.k.a. Zerologon. @buffaloverflow"
+  },
+  {
+    "name": "Shhmon",
+    "command_name": "Shhmon",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Neutering Sysmon via driver unload. @Shhmon"
+  },
+  {
+    "name": "Snaffler",
+    "command_name": "Snaffler",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool for pentesters to help find delicious candy. @l0ss and @Sh3r4"
+  },
+  {
+    "name": "SqlClient",
+    "command_name": "SqlClient",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# .NET mssql client for accessing database data through beacon. @FortyNorthSecurity"
+  },
+  {
+    "name": "Standin",
+    "command_name": "Standin",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# based small AD post-compromise toolkit. @FuzzySec"
+  },
+  {
+    "name": "StickyNotesExtract",
+    "command_name": "StickyNotesExtract",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# tool that extracts data from the Windows Sticky Notes database. @V1V1"
+  },
+  {
+    "name": "SweetPotato",
+    "command_name": "SweetPotato",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Local Service to SYSTEM privilege escalation from Windows 7 to Windows 10 / Server 2019 . @CCob"
+  },
+  {
+    "name": "ThunderFox",
+    "command_name": "ThunderFox",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# Retrieves data (contacts, emails, history, cookies and credentials) from Thunderbird and Firefox. @V1V1"
+  },
+  {
+    "name": "TruffleSnout",
+    "command_name": "TruffleSnout",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# based iterative AD discovery toolkit for offensive operators. @dsnezhkov"
+  },
+  {
+    "name": "TokenStomp",
+    "command_name": "TokenStomp",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# implementation of the token privilege removal flaw discovered by @GabrielLandau / Elastic. @Mrtn9"
+  },
+  {
+    "name": "WMIReg",
+    "command_name": "WMIReg",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "C# PoC to interact with local/remote registry hives through WMI. @airzero24"
+  },
+  {
+    "name": "Watson",
+    "command_name": "Watson",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Enumerate missing KBs and suggest exploits for useful Privilege Escalation vulnerabilities . @rasta-mouse"
+  },
+  {
+    "name": "winPEAS",
+    "command_name": "winPEAS",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "PEASS - Privilege Escalation Awesome Scripts (winPEAS). @carlospolop"
+  },
+  {
+    "name": "Whisker",
+    "command_name": "Whisker",
+    "repo_url": "https://github.com/Flangvik/SharpCollection",
+    "description": "Whisker is a C# tool for taking over Active Directory user and computer accounts by manipulating their msDS-KeyCredentialLink attribute. @elad_shamir"
+  }
+]

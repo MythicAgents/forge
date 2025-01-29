@@ -1,0 +1,10 @@
+[
+	{
+		"name": "SharpCollection",
+		"type": "assembly"
+	},
+	{
+		"name": "SliverArmory",
+		"type": "bof"
+	}
+]
