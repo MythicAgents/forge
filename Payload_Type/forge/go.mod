@@ -2,7 +2,7 @@ module community_collections
 
 go 1.23.4
 
-replace github.com/MythicMeta/MythicContainer => ../../../../MythicMeta/MythicContainer
+//replace github.com/MythicMeta/MythicContainer => ../../../../MythicMeta/MythicContainer
 
 require github.com/MythicMeta/MythicContainer v1.4.13
 
