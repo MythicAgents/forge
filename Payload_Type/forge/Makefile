@@ -14,13 +14,13 @@ GITHUB_TOKEN?=
 build:
 	go mod download
 	go mod tidy
-	go build -o ${BINARY_NAME} .
+	CGO_ENABLED=0 go build -o ${BINARY_NAME} .
 	cp ${BINARY_NAME} /
 
 run_download:
 	go mod download
 	go mod tidy
-	go build -o ${BINARY_NAME} .
+	CGO_ENABLED=0 go build -o ${BINARY_NAME} .
 	GITHUB_TOKEN=${GITHUB_TOKEN} ./${BINARY_NAME} download
 	cp -R ./forge/collections /collections
 
@@ -32,7 +32,7 @@ run:
 run_custom:
 	go mod download
 	go mod tidy
-	go build -o ${BINARY_NAME} .
+	CGO_ENABLED=0 go build -o ${BINARY_NAME} .
 	DEBUG_LEVEL=${DEBUG_LEVEL} \
 RABBITMQ_HOST=${RABBITMQ_HOST} \
 RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD} \
