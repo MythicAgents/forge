@@ -9,7 +9,7 @@ weight = 5
 Forge is a "Command Augmentation" payload type that provides a few functions for downloading/creating BOF/.NET commands as new, tab-completable commands within a variety of other payload type's callbacks.
 Forge itself can't be "built"; instead, it offers Mythic-side commands that can then be passed down to various callbacks for execution.
 
-These forge commands are automatically injected into all Windows callbacks based on payload types listed in the [payload_type_support.json](#payload_type_support.json) file (more on that further down).
+These forge commands are automatically injected into all Windows callbacks based on payload types listed in the [payload_type_support.json](#payload_type_supportjson) file (more on that further down).
 
 Forge offers three kinds of execution for supported payload types:
 * BOF
@@ -45,7 +45,7 @@ This takes the following format:
   }
 ]
 ```
-This is an array of entries, one for each agent that's supported. If you want to add your agent as a supported agent, then just modify this file to add your own entry to the list. Then run the following commands:
+This is an array of entries, one for each agent that's supported. If you want to add your agent as a supported agent, you can use the `forge_support` command. Alternatively, you can modify this file to add your own entry to the list. Then run the following commands:
 ```bash
 sudo ./mythic-cli build forge
 ```
@@ -54,7 +54,7 @@ This file allows you to indicate, for each supported payload type, what paramete
 
 #### bof
 
-BOF commands created as part of Forge are first-order commands within supported callbacks. For example, if the bof is "sa-netgroup", then the corresponding command that will be registered is `forge_bof_sa-netgroup`.
+BOF commands created as part of Forge are first-order commands within supported callbacks. For example, if the bof command is "sa-netgroup", then the corresponding command that will be registered is `forge_bof_sa-netgroup`.
 This allows you to easily group `forge*` commands together and identify if a command is a BOF or .NET executable. If this BOF takes two arguments, `group` and `server`, then they'll be exposed to the operator like 
 `forge_bof_sa-netgroup -server 127.0.0.1 -group Administrators`. You don't need to worry about the order or types of values, that'll be handled for you based on the backing bof's `extension.json` file (the same as the SliverArmory format).
 
