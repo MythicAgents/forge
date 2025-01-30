@@ -6,6 +6,7 @@ import (
 	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
 	"github.com/MythicMeta/MythicContainer/logging"
 	"github.com/MythicMeta/MythicContainer/mythicrpc"
+	"os"
 	"path/filepath"
 )
 
@@ -34,7 +35,7 @@ func init() {
 				Description:      "Choose which collection to query",
 				ModalDisplayName: "Collection Name to Query",
 				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
-					return getCollectionSourceNameOptions()
+					return getCollectionSourceNameOptions(message)
 				},
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
 					{
@@ -114,8 +115,33 @@ func init() {
 				switch collectionSourceData.Type {
 				case "assembly":
 					commandSources[i].CommandName = fmt.Sprintf("%s%s", AssemblyPrefix, commandSources[i].CommandName)
+					oneExists := false
+					if commandSources[i].CustomVersion != "" {
+						commandFilePath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSources[i].CustomVersion, commandSources[i].Name+".exe")
+						_, err = os.Stat(commandFilePath)
+						if err == nil {
+							oneExists = true
+						}
+					} else {
+						for _, ver := range assemblyVersions {
+							commandFilePath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, ver, commandSources[i].Name+".exe")
+							_, err = os.Stat(commandFilePath)
+							if err == nil {
+								oneExists = true
+								break
+							}
+						}
+					}
+					if oneExists {
+						commandSources[i].Downloaded = true
+					}
+
 				case "bof":
 					commandSources[i].CommandName = fmt.Sprintf("%s%s", BofPrefix, commandSources[i].CommandName)
+					_, err = os.Stat(filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSources[i].Name, "extension.json"))
+					if err == nil {
+						commandSources[i].Downloaded = true
+					}
 				}
 				for _, registeredCommand := range commandSearchResp.Commands {
 					switch collectionSourceData.Type {

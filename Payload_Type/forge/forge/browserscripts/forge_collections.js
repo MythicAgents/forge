@@ -21,10 +21,10 @@ function(task, responses){
                         "name": "",
                         "type": "task",
                         "ui_feature": "forge:download",
-                        "hoverText": collection[i]["downloadable"] ? "Re-download latest from GitHub and register command" : "No url associated with this source, so it can't be re downloaded",
-                        "startIcon": "download",
+                        "hoverText": collection[i]["downloadable"] ? collection[i]["downloaded"] ? "Re-download latest from GitHub and register command" : "Download latest from GitHub and register command" : "No url associated with this source, so it can't be re downloaded",
                         "disabled": !collection[i]["downloadable"],
-                        "startIconColor": "green",
+                        "startIcon": collection[i]["downloadable"] ? collection[i]["downloaded"] ? "refresh" : "download" : collection[i]["downloaded"] ? "check" : "x" ,
+                        "startIconColor": collection[i]["downloadable"] ? collection[i]["downloaded"] ? "info" : "warning" : collection[i]["downloaded"] ? "success" : "error" ,
                         "parameters": {"collectionName": collection[i]["collection_name"], "commandName": collection[i]["name"]}
                     }},
                 "Reg": {"button": {
@@ -32,8 +32,8 @@ function(task, responses){
                         "type": "task",
                         "ui_feature": "forge:register",
                         "hoverText": collection[i]["registered"] ? "Remove Command": "Register command",
-                        "startIcon": collection[i]["registered"] ? "kill": "list",
-                        "startIconColor": collection[i]["registered"] ? "red": "",
+                        "startIcon": collection[i]["registered"] ? "x": "add",
+                        "startIconColor": collection[i]["registered"] ? "error": "success",
                         "parameters": {"collectionName": collection[i]["collection_name"], "commandName": collection[i]["name"], "remove": collection[i]["registered"]}
                     }},
                 "Name": {"plaintext": collection[i]["name"]},

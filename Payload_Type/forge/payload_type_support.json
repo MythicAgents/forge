@@ -11,5 +11,18 @@
 		"execute_assembly_command": "execute_assembly",
 		"execute_assembly_file_parameter_name": "assembly_file",
 		"execute_assembly_argument_parameter_name": "assembly_arguments"
+	},
+	{
+		"agent": "athena",
+		"bof_command": "coff",
+		"bof_file_parameter_name": "coffFile",
+		"bof_argument_array_parameter_name": "argument_array",
+		"bof_entrypoint_parameter_name": "functionName",
+		"inline_assembly_command": "",
+		"inline_assembly_file_parameter_name": "",
+		"inline_assembly_argument_parameter_name": "",
+		"execute_assembly_command": "",
+		"execute_assembly_file_parameter_name": "",
+		"execute_assembly_argument_parameter_name": ""
 	}
 ]

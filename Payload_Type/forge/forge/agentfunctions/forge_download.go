@@ -1063,7 +1063,7 @@ func init() {
 				Description:      "Choose which collection to query",
 				ModalDisplayName: "Collection Name to Query",
 				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
-					return getCollectionSourceNameOptions()
+					return getCollectionSourceNameOptions(message)
 				},
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
 					{

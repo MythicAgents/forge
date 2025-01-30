@@ -27,7 +27,25 @@ type collectionSource struct {
 
 var collectionSourceNotFoundError = errors.New("collection source not found")
 
-func getCollectionSourceNameOptions() []string {
+func getCollectionSourceNameOptions(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
+	agentsFile, err := getOrCreateFile(PayloadTypeSupportFilename)
+	if err != nil {
+		logging.LogError(err, "Failed to read payload type support file")
+		return []string{}
+	}
+	agents := []agentDefinition{}
+	err = json.Unmarshal(agentsFile, &agents)
+	if err != nil {
+		logging.LogError(err, "failed to marshal payload type supports")
+		return []string{}
+	}
+	var backingAgent agentDefinition
+	for _, agent := range agents {
+		if agent.Agent == message.PayloadType {
+			backingAgent = agent
+			break
+		}
+	}
 	assemblyCommandsFile, err := getOrCreateFile(CollectionSources)
 	if err != nil {
 		logging.LogError(err, "Failed to read collection sources file")
@@ -39,9 +57,22 @@ func getCollectionSourceNameOptions() []string {
 		logging.LogError(err, "failed to parse collection sources")
 		return []string{}
 	}
-	sourceNames := make([]string, len(sources))
-	for i, source := range sources {
-		sourceNames[i] = source.Name
+	sourceNames := []string{}
+	for _, source := range sources {
+		switch source.Type {
+		case "assembly":
+			if backingAgent.InlineAssemblyCommand != "" || backingAgent.ExecuteAssemblyCommand != "" {
+				sourceNames = append(sourceNames, source.Name)
+			} else {
+				logging.LogWarning("No Valid Assembly Commands Available", "payloadtype", message.PayloadType, "source type", source.Type)
+			}
+		case "bof":
+			if backingAgent.BofCommand != "" {
+				sourceNames = append(sourceNames, source.Name)
+			} else {
+				logging.LogWarning("No Valid BOF Commands Available", "payloadtype", message.PayloadType, "source type", source.Type)
+			}
+		}
 	}
 	return sourceNames
 }
@@ -150,6 +181,7 @@ type collectionSourceCommandData struct {
 	customBofExtensionFileID string
 	Registered               bool   `json:"registered"`
 	Downloadable             bool   `json:"downloadable"`
+	Downloaded               bool   `json:"downloaded"`
 	CollectionName           string `json:"collection_name"`
 }
 type agentDefinition struct {

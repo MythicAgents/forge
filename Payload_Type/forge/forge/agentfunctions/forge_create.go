@@ -36,7 +36,7 @@ func init() {
 				Description:      "Choose which collection to associate this new command with",
 				ModalDisplayName: "Collection Name",
 				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
-					return getCollectionSourceNameOptions()
+					return getCollectionSourceNameOptions(message)
 				},
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
 					{
