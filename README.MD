@@ -8,7 +8,7 @@ Forge is a "Command Augmentation" Payload Type for Mythic that brings in @Flangv
 Forge itself doesn't build and isn't deployed to a target host; instead, it provides "alias" type commands for BOF execution and .NET execution that are then passed to another Payload Type's commands.
 For example, a `forge_net_Rubeus` command might get passed to Apollo's `execute_assembly` command for execution.
 
-Forge comes preconfigured for `Apollo`, but new agent support can always be added on the fly with the `forge_support` command (only needs to happen once per Mythic instance) or by modifying the `payload_type_support.json` file on disk and restarting the container.
+Forge comes preconfigured for `Apollo` and `Athena`, but new agent support can always be added on the fly with the `forge_support` command (only needs to happen once per Mythic instance) or by modifying the `payload_type_support.json` file on disk and restarting the container.
 
 ## Forge's Icon
 
