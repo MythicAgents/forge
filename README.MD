@@ -30,6 +30,13 @@ Now, you might be wondering _when_ should you or a user do this to properly add 
 * Mythic is already up and going, but you want to minimize your steps, you can just install the agent and run `sudo ./mythic-cli start`. That script will first _stop_ all of your containers, then start everything back up again. This will also bring in the new agent you just installed.
 * Mythic isn't running, you can install the script and just run `sudo ./mythic-cli start`.
 
+## I want tool X included!
+
+Awesome! If it's a .NET assembly, please first reach out to @Flangvik and try to get it added to their SharpCollection project.
+If it's a BOF, please first reach out to the Sliver team and try to get it added to their Armory.
+
+Forge is built on the backs of these two amazing projects, so if there's going to be community effort put forth to adding more capabilities, I want these two great projects to get those updates first if possible.
+
 ## Documentation
 
 The Poseidon documentation source code can be found in the `documenation-payload/forge` directory.
