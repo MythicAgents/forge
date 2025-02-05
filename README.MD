@@ -12,7 +12,9 @@ Forge comes preconfigured for `Apollo`, but new agent support can always be adde
 
 ## Forge's Icon
 
-poseidon's icon made by Iconic Panda from [flaticon.com](https://www.flaticon.com/free-icons/forge)
+forge's icon made by Iconic Panda from [flaticon.com](https://www.flaticon.com/free-icons/forge).
+
+Special shoutout to Alex DeMine for coming up with the name and logo!
 
 ## How to install an agent in this format within Mythic
 
