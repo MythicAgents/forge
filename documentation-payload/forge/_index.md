@@ -135,6 +135,23 @@ This file outlines the original sources of all the commands that are available u
 * "custom_version":
   * This can be used to specify a custom version to associate with a .NET execution instead of using one of the versions associated with SharpCollection's formats
 
-
+If you add your own command sources for an internal repository or download link, you can set a user secret on your account for `GITHUB_TOKEN` with a GitHub pat or any value that you want to use as part of an Authorization header for access. The code to download from the remote repository does the following:
+```go
+env := os.Environ()
+for _, envVar := range env {
+    if strings.HasPrefix(envVar, "GITHUB_TOKEN") {
+        envPieces := strings.Split(envVar, "=")
+        if len(envPieces) != 2 {
+            break
+        }
+        if len(envPieces[1]) < 10 {
+            break
+        }
+      if req.Header.Get("Authorization") == "" {
+          req.Header.Add("Authorization", "Bearer "+strings.Split(envVar, "=")[1])
+      }
+    }
+}
+```
 ## Authors
 - @its_a_feature_
