@@ -339,6 +339,11 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 					for i, _ := range commandSources {
 						if commandSources[i].CommandName == commandSource.CommandName {
 							foundCommand = true
+							updatedStatus := fmt.Sprintf("Downloading assembly...")
+							mythicrpc.SendMythicRPCTaskUpdate(mythicrpc.MythicRPCTaskUpdateMessage{
+								TaskID:       taskData.Task.ID,
+								UpdateStatus: &updatedStatus,
+							})
 							err = downloadAssemblyFile(commandSources[i], assemblyVersion, collectionSourceData, taskData)
 							if err != nil {
 								response.Success = false
@@ -449,6 +454,11 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 					mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 						TaskID:   taskData.Task.ID,
 						Response: []byte(fmt.Sprintf("[*] Passing execution to %s's \"%s\" command for further processing...\n", agent.Agent, commandName)),
+					})
+					updatedStatus := fmt.Sprintf("%s preparing task...", agent.Agent)
+					mythicrpc.SendMythicRPCTaskUpdate(mythicrpc.MythicRPCTaskUpdateMessage{
+						TaskID:       taskData.Task.ID,
+						UpdateStatus: &updatedStatus,
 					})
 					return response
 				}
@@ -984,6 +994,11 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 					mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 						TaskID:   taskData.Task.ID,
 						Response: []byte(fmt.Sprintf("[*] Passing execution to %s's \"%s\" command for further processing...\n", agent.Agent, commandName)),
+					})
+					updatedStatus := fmt.Sprintf("%s preparing task...", agent.Agent)
+					mythicrpc.SendMythicRPCTaskUpdate(mythicrpc.MythicRPCTaskUpdateMessage{
+						TaskID:       taskData.Task.ID,
+						UpdateStatus: &updatedStatus,
 					})
 					return response
 				}
