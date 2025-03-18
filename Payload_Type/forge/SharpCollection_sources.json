@@ -316,7 +316,7 @@
     "description": "PURE C# port of significant MimiKatz functionality such as logonpasswords, dcsync, etc. @b4rtik"
   },
   {
-    "name": "SharpKiller",
+    "name": "Sharp-Killer",
     "command_name": "SharpKiller",
     "repo_url": "https://github.com/Flangvik/SharpCollection",
     "description": "Lifetime AMSI bypass by @ZeroMemoryEx ported to .NET Framework 4.8 @S1lky_1337"
