@@ -119,8 +119,8 @@
     "description": "C# toolset for raw Kerberos interaction and abuses. @GhostPack"
   },
   {
-    "name": "_RunAsCs",
-    "command_name": "RunAs",
+    "name": "_RunasCs",
+    "command_name": "RunAsCs",
     "repo_url": "https://github.com/Flangvik/SharpCollection",
     "description": "Csharp and open version of windows builtin runas.exe. @splinter_code"
   },
@@ -501,8 +501,8 @@
     "description": "C# .NET mssql client for accessing database data through beacon. @FortyNorthSecurity"
   },
   {
-    "name": "Standin",
-    "command_name": "Standin",
+    "name": "StandIn",
+    "command_name": "StandIn",
     "repo_url": "https://github.com/Flangvik/SharpCollection",
     "description": "C# based small AD post-compromise toolkit. @FuzzySec"
   },
