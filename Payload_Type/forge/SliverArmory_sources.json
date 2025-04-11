@@ -834,24 +834,6 @@
     "public_key": "RWRm8i4sFCLvcgeDadZwq/nrHrioIm81PN3nejwhty6yjaomlfjACk8r"
   },
   {
-    "name": "Keylogger",
-    "command_name": "raw-keylogger",
-    "repo_url": "https://github.com/sliverarmory/SliverKeylogger",
-    "public_key": "RWSSZAU2J83hqtNtSZigjU4PWcII3XYLP8KCvCJbxJUO8ax1GWTsdHYK"
-  },
-  {
-    "name": "winrm",
-    "command_name": "winrm",
-    "repo_url": "https://github.com/sliverarmory/winrmdll-sliver",
-    "public_key": "RWSJ7R+SWl07CHFJc0/EISI13VYDIWbgU+caunVW9sIZfZZHJAjIsbS0"
-  },
-  {
-    "name": "hashdump",
-    "command_name": "hashdump",
-    "repo_url": "https://github.com/sliverarmory/hashdump",
-    "public_key": "RWTh1yHjC7SqdX88YUPr0mwyWQpJPJf45rnquCfLl5McmSoxX1JMHvOG"
-  },
-  {
     "name": "patchit",
     "command_name": "patchit",
     "repo_url": "https://github.com/sliverarmory/BOF-patchit",
@@ -862,18 +844,6 @@
     "command_name": "threadless-inject",
     "repo_url": "https://github.com/sliverarmory/ThreadlessInject-BOF",
     "public_key": "RWQb8kihJmahzcrXdqyTgIzOlKOGkMy41Jw99LgbLIPP/fumtFxN5nGc"
-  },
-  {
-    "name": "kerbrute",
-    "command_name": "kerbrute",
-    "repo_url": "https://github.com/sliverarmory/kerbrute",
-    "public_key": "RWR8t1Bebp515aKBZV5NILvxDf0eENlEbM1lSBfeKzfpS+kQDpCynmSY"
-  },
-  {
-    "name": "mimikatz",
-    "command_name": "mimikatz",
-    "repo_url": "https://github.com/sliverarmory/mimikatz",
-    "public_key": "RWQoTq429Swu8XK1KoKvcI4YDByEdI+QMMh+ZIdZha8qR/1sGewzJwPW"
   },
   {
     "name": "jump-wmiexec",
@@ -892,23 +862,5 @@
     "command_name": "nanorobeus",
     "repo_url": "https://github.com/sliverarmory/HavocFrameworkModules",
     "public_key": "RWQK7+ZMIJIoyU+LbkVETsqj6aTT9cvJG5pk4J9hY50Isfzcf9zsEFrn"
-  },
-  {
-    "name": "go-cookie-monster",
-    "command_name": "go-cookie-monster",
-    "repo_url": "https://github.com/sliverarmory/go-cookie-monster",
-    "public_key": "RWT9dnd+uf1FED1AkJO9jToTcmDChfq9KQpcBLjQtAhbOXTzAp29uWKD"
-  },
-  {
-    "name": "chisel",
-    "command_name": "chisel",
-    "repo_url": "https://github.com/sliverarmory/chisel",
-    "public_key": "RWQprtN3AKNuWbfXIGnCza43DUTy7ePrn1qJkOvuNGIIQbCv7UsK24Z6"
-  },
-  {
-    "name": "portbender",
-    "command_name": "portbender",
-    "repo_url": "https://github.com/sliverarmory/Sliver-PortBender",
-    "public_key": "RWSt+JnLbkQac67EF+VhPhZUxKwvRYxc2W/WInI/UtYC4KiuGdzwHC8p"
   }
 ]

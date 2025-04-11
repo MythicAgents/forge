@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 )
 
-const version = "0.0.2"
+const version = "0.0.3"
 const CollectionSources = "collection_sources.json"
 const PayloadTypeSupportFilename = "payload_type_support.json"
 const BofPrefix = "forge_bof_"
