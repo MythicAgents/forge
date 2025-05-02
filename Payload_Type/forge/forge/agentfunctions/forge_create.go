@@ -63,11 +63,6 @@ func init() {
 						GroupName:           assemblyGroup,
 						UIModalPosition:     2,
 					},
-					{
-						ParameterIsRequired: true,
-						GroupName:           bofGroup,
-						UIModalPosition:     2,
-					},
 				},
 			},
 			{
@@ -151,6 +146,14 @@ func init() {
 				Success: true,
 				TaskID:  taskData.Task.ID,
 			}
+			var commandName string
+			description, err := taskData.Args.GetStringArg("description")
+			if err != nil {
+				logging.LogError(err, "failed to get commandName")
+				response.Success = false
+				response.Error = err.Error()
+				return response
+			}
 			parameterGroup, err := taskData.Args.GetParameterGroupName()
 			if err != nil {
 				logging.LogError(err, "failed to get parameterGroup")
@@ -158,23 +161,55 @@ func init() {
 				response.Error = err.Error()
 				return response
 			}
+			if parameterGroup == assemblyGroup {
+				commandName, err = taskData.Args.GetStringArg("commandName")
+				if err != nil {
+					logging.LogError(err, "failed to get commandName")
+					response.Success = false
+					response.Error = err.Error()
+					return response
+				}
+			} else {
+				// fetch the command name from the extension.json file that was uploaded
+				extensionFileID, err := taskData.Args.GetFileArg("extensionFile")
+				if err != nil {
+					logging.LogError(err, "failed to get version")
+					response.Success = false
+					response.Error = err.Error()
+					return response
+				}
+				if extensionFileID == "" {
+					response.Error = "No extension file specified"
+					response.Success = false
+					return response
+				}
+				contentResp, err := mythicrpc.SendMythicRPCFileGetContent(mythicrpc.MythicRPCFileGetContentMessage{
+					AgentFileID: extensionFileID,
+				})
+				if err != nil {
+					logging.LogError(err, "failed to send file content request to Mythic")
+					response.Success = false
+					response.Error = err.Error()
+					return response
+				}
+				if !contentResp.Success {
+					response.Success = false
+					response.Error = contentResp.Error
+					return response
+				}
+				bofCommandExtension := bofCommandDefinition{}
+				err = json.Unmarshal(contentResp.Content, &bofCommandExtension)
+				if err != nil {
+					logging.LogError(err, "failed to unmarshal extension.json file into struct")
+					response.Success = false
+					response.Error = contentResp.Error
+					return response
+				}
+				commandName = bofCommandExtension.CommandName
+			}
 			collection, err := taskData.Args.GetStringArg("collectionName")
 			if err != nil {
 				logging.LogError(err, "failed to get collection name")
-				response.Success = false
-				response.Error = err.Error()
-				return response
-			}
-			commandName, err := taskData.Args.GetStringArg("commandName")
-			if err != nil {
-				logging.LogError(err, "failed to get commandName")
-				response.Success = false
-				response.Error = err.Error()
-				return response
-			}
-			description, err := taskData.Args.GetStringArg("description")
-			if err != nil {
-				logging.LogError(err, "failed to get commandName")
 				response.Success = false
 				response.Error = err.Error()
 				return response
