@@ -515,12 +515,6 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 	return newCommand
 }
 func downloadBofFile(commandSource collectionSourceCommandData, collectionSourceData collectionSource, taskData *agentstructs.PTTaskMessageAllData) error {
-	urlPieces := strings.Split(commandSource.RepoURL, "/")
-	repo := strings.Join(urlPieces[3:], "/")
-	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
-	if commandSource.CustomVersion != "" {
-		url = fmt.Sprintf("https://api.github.com/repos/%s/releases/tags/%s", repo, commandSource.CustomVersion)
-	}
 	if len(commandSource.customBofFileIDs) > 0 {
 		extractPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName) + string(os.PathSeparator)
 		err := os.MkdirAll(extractPath, os.ModePerm)
@@ -573,6 +567,12 @@ func downloadBofFile(commandSource collectionSourceCommandData, collectionSource
 			return err
 		}
 		return nil
+	}
+	urlPieces := strings.Split(commandSource.RepoURL, "/")
+	repo := strings.Join(urlPieces[3:], "/")
+	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
+	if commandSource.CustomVersion != "" {
+		url = fmt.Sprintf("https://api.github.com/repos/%s/releases/tags/%s", repo, commandSource.CustomVersion)
 	}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
