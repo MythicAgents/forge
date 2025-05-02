@@ -668,8 +668,9 @@ type bofCommandDefinitionArguments struct {
 	Name        string `json:"name"`
 	Description string `json:"desc"`
 	//Type valid values: b -> file, i -> int or integer, s -> short, z -> string, Z -> wstring
-	Type     string `json:"type"`
-	Optional bool   `json:"optional"`
+	Type     string      `json:"type"`
+	Optional bool        `json:"optional"`
+	Default  interface{} `json:"default"`
 }
 type bofCommandDefinition struct {
 	Name            string                          `json:"name"`
@@ -732,6 +733,7 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 			Name:          arg.Name,
 			Description:   arg.Description,
 			ParameterType: newType,
+			DefaultValue:  arg.Default,
 			ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
 				{
 					ParameterIsRequired: !arg.Optional,
