@@ -7,10 +7,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
-	"github.com/MythicMeta/MythicContainer/logging"
-	"github.com/MythicMeta/MythicContainer/mythicrpc"
-	"github.com/MythicMeta/MythicContainer/rabbitmq"
 	"io"
 	"net/http"
 	"os"
@@ -18,6 +14,11 @@ import (
 	"slices"
 	"strings"
 	"time"
+
+	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
+	"github.com/MythicMeta/MythicContainer/logging"
+	"github.com/MythicMeta/MythicContainer/mythicrpc"
+	"github.com/MythicMeta/MythicContainer/rabbitmq"
 )
 
 var assemblyVersions = []string{
@@ -514,6 +515,7 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 	}
 	return newCommand
 }
+
 func downloadBofFile(commandSource collectionSourceCommandData, collectionSourceData collectionSource, taskData *agentstructs.PTTaskMessageAllData) error {
 	if len(commandSource.customBofFileIDs) > 0 {
 		extractPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName) + string(os.PathSeparator)
@@ -568,95 +570,114 @@ func downloadBofFile(commandSource collectionSourceCommandData, collectionSource
 		}
 		return nil
 	}
-	urlPieces := strings.Split(commandSource.RepoURL, "/")
-	repo := strings.Join(urlPieces[3:], "/")
-	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
-	if commandSource.CustomVersion != "" {
-		url = fmt.Sprintf("https://api.github.com/repos/%s/releases/tags/%s", repo, commandSource.CustomVersion)
-	}
-	req, err := http.NewRequest("GET", url, nil)
+
+	downloadPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName+".tar.gz")
+	extractPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName) + string(os.PathSeparator)
+
+	err := os.MkdirAll(extractPath, os.ModePerm)
 	if err != nil {
-		logging.LogError(err, "failed to make get request for bof")
 		return err
 	}
-	// Add required headers
-	req.Header.Add("Accept", "application/vnd.github.v3.text-match+json")
-	req.Header.Add("Accept", "application/vnd.github.moondragon+json")
+	downloadFile, err := os.Create(downloadPath)
+	if err != nil {
+		return err
+	}
+	defer downloadFile.Close()
+	if taskData != nil {
+		mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+			TaskID:   taskData.Task.ID,
+			Response: []byte(fmt.Sprintf("[*] Downloading %s...\n", commandSource.Name+".tar.gz")),
+		})
+	}
+
+	tarGzURL := ""
+	if commandSource.CustomDownloadURL != "" {
+		logging.LogInfo("Custom download URL was supplied")
+		tarGzURL = commandSource.CustomDownloadURL
+	} else {
+		logging.LogInfo("Using default download procedure, assuming GitHub")
+		// calculate GitHub asset download URL
+		urlPieces := strings.Split(commandSource.RepoURL, "/")
+		repo := strings.Join(urlPieces[3:], "/")
+		url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
+		if commandSource.CustomVersion != "" {
+			url = fmt.Sprintf("https://api.github.com/repos/%s/releases/tags/%s", repo, commandSource.CustomVersion)
+		}
+		req, err := http.NewRequest("GET", url, nil)
+		if err != nil {
+			logging.LogError(err, "failed to make get request for bof")
+			return err
+		}
+		// Add required headers
+		req.Header.Add("Accept", "application/vnd.github.v3.text-match+json")
+		req.Header.Add("Accept", "application/vnd.github.moondragon+json")
+		if taskData != nil {
+			if _, ok := taskData.Secrets["GITHUB_TOKEN"]; ok {
+				req.Header.Add("Authorization", "Bearer "+taskData.Secrets["GITHUB_TOKEN"].(string))
+			}
+		}
+		body, err := rateLimitLoopFetchURL(req)
+		if err != nil {
+			return err
+		}
+		result := make(map[string]interface{})
+		err = json.Unmarshal(body, &result)
+		if err != nil {
+			logging.LogError(err, "failed to unmarshal response body")
+			return err
+		}
+		if len(result["assets"].([]interface{})) == 0 {
+			return errors.New("no assets found in GitHub release")
+		}
+		found := false
+		for _, asset := range result["assets"].([]interface{}) {
+			if asset.(map[string]interface{})["name"].(string) == commandSource.CommandName+".tar.gz" {
+				tarGzURL = asset.(map[string]interface{})["url"].(string)
+				found = true
+			}
+		}
+		if !found {
+			return errors.New("unable to find command name in assets")
+		}
+	}
+
+	if tarGzURL == "" {
+		return errors.New("no download URL present")
+	}
+
+	downloadReq, err := http.NewRequest("GET", tarGzURL, nil)
+	if err != nil {
+		logging.LogError(err, "failed to make new request for bof in released assets")
+		return err
+	}
+	downloadReq.Header.Add("Accept", "application/octet-stream")
 	if taskData != nil {
 		if _, ok := taskData.Secrets["GITHUB_TOKEN"]; ok {
-			req.Header.Add("Authorization", "Bearer "+taskData.Secrets["GITHUB_TOKEN"].(string))
+			downloadReq.Header.Add("Authorization", "Bearer "+taskData.Secrets["GITHUB_TOKEN"].(string))
 		}
 	}
-	body, err := rateLimitLoopFetchURL(req)
+	downloadFileBody, err := rateLimitLoopFetchURL(downloadReq)
+	if err != nil {
+		os.Remove(downloadPath)
+		return err
+	}
+	_, err = downloadFile.Write(downloadFileBody)
+	if err != nil {
+		os.Remove(downloadPath)
+		return err
+	}
+	if taskData != nil {
+		mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+			TaskID:   taskData.Task.ID,
+			Response: []byte(fmt.Sprintf("[+] Finished Downloading %s\n", commandSource.Name+".tar.gz")),
+		})
+	}
+	downloadFile.Seek(0, 0)
+	err = ExtractTarGz(downloadFile, extractPath)
 	if err != nil {
 		return err
 	}
-	result := make(map[string]interface{})
-	err = json.Unmarshal(body, &result)
-	if err != nil {
-		logging.LogError(err, "failed to unmarshal response body")
-		return err
-	}
-	for _, asset := range result["assets"].([]interface{}) {
-		if asset.(map[string]interface{})["name"].(string) == commandSource.CommandName+".tar.gz" {
-			downloadURL := asset.(map[string]interface{})["url"].(string)
-			downloadPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName+".tar.gz")
-			extractPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName) + string(os.PathSeparator)
-			err = os.MkdirAll(extractPath, os.ModePerm)
-			if err != nil {
-				return err
-			}
-			downloadFile, err := os.Create(downloadPath)
-			if err != nil {
-				return err
-			}
-			if taskData != nil {
-				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
-					TaskID:   taskData.Task.ID,
-					Response: []byte(fmt.Sprintf("[*] Downloading %s...\n", commandSource.Name+".tar.gz")),
-				})
-			}
-
-			downloadReq, err := http.NewRequest("GET", downloadURL, nil)
-			if err != nil {
-				downloadFile.Close()
-				logging.LogError(err, "failed to make new request for bof in released assets")
-				return err
-			}
-			downloadReq.Header.Add("Accept", "application/octet-stream")
-			if taskData != nil {
-				if _, ok := taskData.Secrets["GITHUB_TOKEN"]; ok {
-					downloadReq.Header.Add("Authorization", "Bearer "+taskData.Secrets["GITHUB_TOKEN"].(string))
-				}
-			}
-			downloadFileBody, err := rateLimitLoopFetchURL(downloadReq)
-			if err != nil {
-				downloadFile.Close()
-				os.Remove(downloadPath)
-				return err
-			}
-			_, err = downloadFile.Write(downloadFileBody)
-			if err != nil {
-				downloadFile.Close()
-				os.Remove(downloadPath)
-				return err
-			}
-			if taskData != nil {
-				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
-					TaskID:   taskData.Task.ID,
-					Response: []byte(fmt.Sprintf("[+] Finished Downloading %s\n", commandSource.Name+".tar.gz")),
-				})
-			}
-			downloadFile.Seek(0, 0)
-			err = ExtractTarGz(downloadFile, extractPath)
-			if err != nil {
-				return err
-			}
-			return nil
-		}
-		//logging.LogInfo("asset data", "asset", asset.(map[string]interface{}))
-	}
-	return errors.New("failed to find file in latest assets")
+	return nil
 }
 
 type bofCommandDefinitionFiles struct {
