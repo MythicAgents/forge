@@ -8,7 +8,7 @@
   "payload_output": ["exe", "o"],
   "architectures": ["x86_64"],
   "c2": [],
-  "mythic_version": "3.3.1-rc48",
-  "agent_version": "0.0.6",
+  "mythic_version": "3.3.1-rc75",
+  "agent_version": "0.0.7",
   "supported_wrappers": []
 }
