@@ -402,9 +402,9 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 					response.Error = uploadResponse.Error
 					return response
 				}
-				binaryFileID = uploadResponse.AgentFileId
+				binaryFileID = uploadResponse.AgentFileID
 			} else {
-				binaryFileID = fileSearch.Files[0].AgentFileId
+				binaryFileID = fileSearch.Files[0].AgentFileID
 			}
 			// get the command we're suppose to issue based on this callback's payload type
 			registeredAgents := []agentDefinition{}
@@ -969,9 +969,9 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 					response.Error = uploadResponse.Error
 					return response
 				}
-				binaryFileID = uploadResponse.AgentFileId
+				binaryFileID = uploadResponse.AgentFileID
 			} else {
-				binaryFileID = fileSearch.Files[0].AgentFileId
+				binaryFileID = fileSearch.Files[0].AgentFileID
 			}
 			// get the command we're suppose to issue based on this callback's payload type
 			registeredAgents := []agentDefinition{}

@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
+	"path/filepath"
+
 	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
 	"github.com/MythicMeta/MythicContainer/logging"
 	"github.com/MythicMeta/MythicContainer/utils/sharedStructs"
-	"os"
-	"path/filepath"
 )
 
-const version = "0.0.7"
+const version = "0.0.8"
 const CollectionSources = "collection_sources.json"
 const PayloadTypeSupportFilename = "payload_type_support.json"
 const BofPrefix = "forge_bof_"
@@ -219,6 +220,7 @@ var payloadDefinition = agentstructs.PayloadType{
 	Description:                            fmt.Sprintf("A collection of bofs/assemblies and their associated commands to be shared across agents.\nVersion %s\nNeeds Mythic 3.3.0+", version),
 	SupportedC2Profiles:                    []string{},
 	MythicEncryptsData:                     true,
+	SemVer:                                 version,
 	AgentType:                              agentstructs.AgentTypeCommandAugment,
 	BuildParameters:                        []agentstructs.BuildParameter{},
 	BuildSteps:                             []agentstructs.BuildStep{},

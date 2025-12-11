@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
+
 	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
 	"github.com/MythicMeta/MythicContainer/logging"
 	"github.com/MythicMeta/MythicContainer/mythicrpc"
 	"github.com/MythicMeta/MythicContainer/rabbitmq"
-	"os"
 )
 
 func removeCommandFromFile(commandSource collectionSourceCommandData, collectionSourceData collectionSource) error {
@@ -265,7 +266,7 @@ func init() {
 							payloadTypeNames[i] = payloadType.Agent
 						}
 						callbacksSearchResp, err := mythicrpc.SendMythicRPCCallbackSearch(mythicrpc.MythicRPCCallbackSearchMessage{
-							AgentCallbackID:            taskData.Callback.ID,
+							AgentCallbackID:            taskData.Callback.AgentCallbackID,
 							SearchCallbackPayloadTypes: &payloadTypeNames,
 						})
 						if err != nil {
