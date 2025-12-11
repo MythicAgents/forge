@@ -1,4 +1,4 @@
-FROM golang:1.23 AS builder
+FROM golang:1.25 AS builder
 
 ARG GITHUB_TOKEN
 
@@ -12,7 +12,7 @@ RUN make run_download
 FROM alpine
 
 RUN apk add make
-RUN apk add libc6-compat
+#RUN apk add libc6-compat
 
 COPY --from=builder /main /main
 COPY --from=builder /collections /collections

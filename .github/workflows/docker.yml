@@ -9,7 +9,6 @@ on:
   #  types: [published]
   push:
     branches:
-      - 'master'
       - 'main'
     tags:
       - "v*.*.*"
@@ -68,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v5 # ref: https://github.com/marketplace/actions/build-and-push-docker-images
         with:
           context: Payload_Type/forge
-          file: Payload_Type/forge/.docker/Dockerfile
+          file: Payload_Type/forge/Dockerfile
           build-args: |
             "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
           tags: |
