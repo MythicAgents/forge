@@ -98,6 +98,9 @@ func ExtractTarGz(gzipStream io.Reader, extractPath string) error {
 		case tar.TypeDir:
 			logging.LogInfo("extracting", "header folder", header.Name, "extract path", extractPath)
 			newName := strings.Replace(header.Name, "./", extractPath, 1)
+			if !strings.HasPrefix(newName, extractPath) {
+				newName = extractPath + newName
+			}
 			err = os.MkdirAll(newName, os.ModePerm)
 			if err != nil {
 				logging.LogError(err, "ExtractTarGz: Mkdir() failed")
@@ -106,6 +109,9 @@ func ExtractTarGz(gzipStream io.Reader, extractPath string) error {
 		case tar.TypeReg:
 			logging.LogInfo("extracting", "header files", header.Name, "extract path", extractPath)
 			newName := strings.Replace(header.Name, "./", extractPath, 1)
+			if !strings.HasPrefix(newName, extractPath) {
+				newName = extractPath + newName
+			}
 			outFile, err := os.Create(newName)
 			if err != nil {
 				logging.LogError(err, "ExtractTarGz: Create() failed")

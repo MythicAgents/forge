@@ -3,11 +3,12 @@ package agentfunctions
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"path/filepath"
+
 	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
 	"github.com/MythicMeta/MythicContainer/logging"
 	"github.com/MythicMeta/MythicContainer/mythicrpc"
-	"os"
-	"path/filepath"
 )
 
 func init() {
@@ -137,8 +138,8 @@ func init() {
 					}
 
 				case "bof":
+					_, err = os.Stat(filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSources[i].CommandName, "extension.json"))
 					commandSources[i].CommandName = fmt.Sprintf("%s%s", BofPrefix, commandSources[i].CommandName)
-					_, err = os.Stat(filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSources[i].Name, "extension.json"))
 					if err == nil {
 						commandSources[i].Downloaded = true
 					}

@@ -12,7 +12,7 @@ import (
 	"github.com/MythicMeta/MythicContainer/utils/sharedStructs"
 )
 
-const version = "0.0.8"
+const version = "0.0.9"
 const CollectionSources = "collection_sources.json"
 const PayloadTypeSupportFilename = "payload_type_support.json"
 const BofPrefix = "forge_bof_"
