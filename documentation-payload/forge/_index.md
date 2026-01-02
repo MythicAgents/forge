@@ -64,10 +64,10 @@ This command then needs to be passed down to your callback for your payload type
 * "bof_file_parameter_name": "bof_file"
   * every bof is backed by a file, this is identifying the name of your BOF command's parameter that expects the file. The value passed to this parameter is the file's UUID (just like if it was type File)
 * "bof_argument_array_parameter_name": "coff_arguments"
-  * in Mythic, the ideal way to handle a BOF's arguments is with a parameter type of TypedArray. This allows us to specify the type of data (int, short, widestring, string, etc) in addition to the data itself in a standard format. Data will be passed along in this stnadard format with standard BOF notations.
+  * in Mythic, the ideal way to handle a BOF's arguments is with a parameter type of TypedArray. This allows us to specify the type of data (int, short, widestring, string, etc) in addition to the data itself in a standard format. Data will be passed along in this standard format with standard BOF notations.
     * For example: `[ ["i", 5], ["Z", "Administrator"] ]`. Your command's typed array parser will get called with this data.
 * "bof_entrypoint_parameter_name": "function_name"
-  * BOFs identy the entrypoint for the program. The vast majority of the time this is `go`, but doesn't technically have to be. This is passed into your payload type's command and fetched from this BOF's backing `extension.json` file.
+  * BOFs identify the entrypoint for the program. The vast majority of the time this is `go`, but doesn't technically have to be. This is passed into your payload type's command and fetched from this BOF's backing `extension.json` file.
 
 #### net
 
