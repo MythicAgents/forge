@@ -37,5 +37,18 @@
 		"execute_assembly_command": "execute_assembly",
 		"execute_assembly_file_parameter_name": "assembly_file",
 		"execute_assembly_argument_parameter_name": "assembly_arguments"
+	},
+	{
+		"agent": "poopsie",
+		"bof_command": "inline_execute",
+		"bof_file_parameter_name": "bof_file",
+		"bof_argument_array_parameter_name": "bof_arguments",
+		"bof_entrypoint_parameter_name": "bof_entrypoint",
+		"inline_assembly_command": "inline_execute_assembly",
+		"inline_assembly_file_parameter_name": "assembly_file",
+		"inline_assembly_argument_parameter_name": "assembly_arguments",
+		"execute_assembly_command": "execute_assembly",
+		"execute_assembly_file_parameter_name": "assembly_file",
+		"execute_assembly_argument_parameter_name": "assembly_arguments"
 	}
 ]
