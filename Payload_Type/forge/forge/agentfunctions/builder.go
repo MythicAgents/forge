@@ -12,7 +12,7 @@ import (
 	"github.com/MythicMeta/MythicContainer/utils/sharedStructs"
 )
 
-const version = "0.0.9"
+const version = "0.0.10"
 const CollectionSources = "collection_sources.json"
 const PayloadTypeSupportFilename = "payload_type_support.json"
 const BofPrefix = "forge_bof_"
@@ -217,7 +217,7 @@ var payloadDefinition = agentstructs.PayloadType{
 	Wrapper:                                false,
 	CanBeWrappedByTheFollowingPayloadTypes: []string{},
 	SupportsDynamicLoading:                 true,
-	Description:                            fmt.Sprintf("A collection of bofs/assemblies and their associated commands to be shared across agents.\nVersion %s\nNeeds Mythic 3.3.0+", version),
+	Description:                            fmt.Sprintf("A collection of bofs/assemblies and their associated commands to be shared across agents.\nNeeds Mythic 3.3.0+"),
 	SupportedC2Profiles:                    []string{},
 	MythicEncryptsData:                     true,
 	SemVer:                                 version,
