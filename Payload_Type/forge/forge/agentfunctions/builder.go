@@ -177,6 +177,7 @@ type collectionSourceCommandData struct {
 	RepoURL                  string `json:"repo_url"`
 	CustomDownloadURL        string `json:"custom_download_url"`
 	CustomVersion            string `json:"custom_version"`
+	ExecutionMethod          string `json:"execution_method"` // optional: "execute_assembly" or "inline_assembly"
 	customAssemblyFileID     string
 	customBofFileIDs         []string
 	customBofExtensionFileID string
