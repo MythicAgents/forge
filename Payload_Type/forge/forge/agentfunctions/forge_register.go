@@ -129,6 +129,19 @@ func init() {
 					},
 				},
 			},
+			{
+				Name:             "executionMethod",
+				ParameterType:    agentstructs.COMMAND_PARAMETER_TYPE_CHOOSE_ONE,
+				Choices:          []string{"execute_assembly", "inline_assembly"},
+				Description:      "Override the default execution method for assembly commands",
+				ModalDisplayName: "Execution Method",
+				DefaultValue:     "",
+				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
+					{
+						ParameterIsRequired: false,
+					},
+				},
+			},
 		},
 		TaskFunctionCreateTasking: func(taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
 			response := agentstructs.PTTaskCreateTaskingMessageResponse{
@@ -151,7 +164,14 @@ func init() {
 			}
 			remove, err := taskData.Args.GetBooleanArg("remove")
 			if err != nil {
-				logging.LogError(err, "failed to get commandName")
+				logging.LogError(err, "failed to get remove")
+				response.Success = false
+				response.Error = err.Error()
+				return response
+			}
+			executionMethod, err := taskData.Args.GetChooseOneArg("executionMethod")
+			if err != nil {
+				logging.LogError(err, "failed to get executionMethod")
 				response.Success = false
 				response.Error = err.Error()
 				return response
@@ -159,6 +179,9 @@ func init() {
 			displayParams := fmt.Sprintf("-collectionName %s -commandName %s", collection, commandName)
 			if remove {
 				displayParams += " -remove"
+			}
+			if executionMethod != "" {
+				displayParams += fmt.Sprintf(" -executionMethod %s", executionMethod)
 			}
 			response.DisplayParams = &displayParams
 			collectionSourceData, err := getCollectionSource(collection)
@@ -207,6 +230,10 @@ func init() {
 								TaskID:   taskData.Task.ID,
 								Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
 							})
+							// Override execution method if provided via parameter
+							if executionMethod != "" {
+								commandSource.ExecutionMethod = executionMethod
+							}
 							newCommand := createAssemblyCommand(commandSource, collectionSourceData, true)
 							agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
 						}
