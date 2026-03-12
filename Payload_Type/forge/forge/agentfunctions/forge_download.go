@@ -322,6 +322,30 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 				response.Error = err.Error()
 				return response
 			}
+			// get the command we're suppose to issue based on this callback's payload type
+			registeredAgents := []agentDefinition{}
+			agentFileData, err := os.ReadFile(PayloadTypeSupportFilename)
+			if err != nil {
+				response.Success = false
+				response.Error = err.Error()
+				return response
+			}
+			err = json.Unmarshal(agentFileData, &registeredAgents)
+			if err != nil {
+				response.Success = false
+				response.Error = err.Error()
+				return response
+			}
+			if !taskData.Args.IsArgUserSupplied("execution") {
+				for _, agent := range registeredAgents {
+					if agent.Agent == taskData.PayloadType {
+						if agent.AssemblyDefaultExecutionMethod != "" {
+							executionMethod = agent.AssemblyDefaultExecutionMethod
+							break
+						}
+					}
+				}
+			}
 			displayParams := fmt.Sprintf("-args \"%s\" -version %s -execution %s", arguments, assemblyVersion, executionMethod)
 			response.DisplayParams = &displayParams
 			downloadPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, assemblyVersion, commandSource.Name+".exe")
@@ -411,20 +435,6 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 				binaryFileID = uploadResponse.AgentFileID
 			} else {
 				binaryFileID = fileSearch.Files[0].AgentFileID
-			}
-			// get the command we're suppose to issue based on this callback's payload type
-			registeredAgents := []agentDefinition{}
-			agentFileData, err := os.ReadFile(PayloadTypeSupportFilename)
-			if err != nil {
-				response.Success = false
-				response.Error = err.Error()
-				return response
-			}
-			err = json.Unmarshal(agentFileData, &registeredAgents)
-			if err != nil {
-				response.Success = false
-				response.Error = err.Error()
-				return response
 			}
 
 			for _, agent := range registeredAgents {

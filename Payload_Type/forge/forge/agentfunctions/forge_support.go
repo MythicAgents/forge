@@ -3,11 +3,12 @@ package agentfunctions
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+
 	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
 	"github.com/MythicMeta/MythicContainer/logging"
 	"github.com/MythicMeta/MythicContainer/mythicrpc"
 	"github.com/MythicMeta/MythicContainer/rabbitmq"
-	"os"
 )
 
 func init() {
@@ -198,6 +199,21 @@ func init() {
 				},
 			},
 			{
+				Name:             "assembly_default_execution_method",
+				CLIName:          "AssemblyDefaultExecutionMethod",
+				ParameterType:    agentstructs.COMMAND_PARAMETER_TYPE_CHOOSE_ONE,
+				Description:      "What should the default execution method be",
+				ModalDisplayName: "Default assembly execution method",
+				DefaultValue:     "execute_assembly",
+				Choices:          []string{"execute_assembly", "inline_assembly"},
+				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
+					{
+						ParameterIsRequired: true,
+						UIModalPosition:     11,
+					},
+				},
+			},
+			{
 				Name:             "remove_support",
 				CLIName:          "remove",
 				ParameterType:    agentstructs.COMMAND_PARAMETER_TYPE_BOOLEAN,
@@ -228,6 +244,7 @@ func init() {
 			inputExecuteAssemblyCommand, _ := taskData.Args.GetStringArg("execute_assembly_command")
 			inputExecuteAssemblyFileParameterName, _ := taskData.Args.GetStringArg("execute_assembly_file_parameter_name")
 			inputExecuteAssemblyArgumentParameterName, _ := taskData.Args.GetStringArg("execute_assembly_argument_parameter_name")
+			inputAssemblyDefaultExecutionMethod, _ := taskData.Args.GetStringArg("assembly_default_execution_method")
 			remove, _ := taskData.Args.GetBooleanArg("remove_support")
 			supportedAgentsFile, err := getOrCreateFile(PayloadTypeSupportFilename)
 			if err != nil {
@@ -247,6 +264,7 @@ func init() {
 				ExecuteAssemblyCommand:               inputExecuteAssemblyCommand,
 				ExecuteAssemblyFileParameterName:     inputExecuteAssemblyFileParameterName,
 				ExecuteAssemblyArgumentParameterName: inputExecuteAssemblyArgumentParameterName,
+				AssemblyDefaultExecutionMethod:       inputAssemblyDefaultExecutionMethod,
 			}
 			supportedAgents := []agentDefinition{}
 			err = json.Unmarshal(supportedAgentsFile, &supportedAgents)

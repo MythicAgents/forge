@@ -12,7 +12,7 @@ import (
 	"github.com/MythicMeta/MythicContainer/utils/sharedStructs"
 )
 
-const version = "0.0.10"
+const version = "0.0.11"
 const CollectionSources = "collection_sources.json"
 const PayloadTypeSupportFilename = "payload_type_support.json"
 const BofPrefix = "forge_bof_"
@@ -197,6 +197,7 @@ type agentDefinition struct {
 	ExecuteAssemblyCommand               string `json:"execute_assembly_command"`
 	ExecuteAssemblyFileParameterName     string `json:"execute_assembly_file_parameter_name"`
 	ExecuteAssemblyArgumentParameterName string `json:"execute_assembly_argument_parameter_name"`
+	AssemblyDefaultExecutionMethod       string `json:"assembly_default_execution_method"`
 }
 type bofCommand struct {
 	CommandName           string `json:"command_name"`

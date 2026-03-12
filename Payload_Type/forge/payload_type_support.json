@@ -10,7 +10,8 @@
 		"inline_assembly_argument_parameter_name": "assembly_arguments",
 		"execute_assembly_command": "execute_assembly",
 		"execute_assembly_file_parameter_name": "assembly_file",
-		"execute_assembly_argument_parameter_name": "assembly_arguments"
+		"execute_assembly_argument_parameter_name": "assembly_arguments",
+		"assembly_default_execution_method": "inline_assembly"
 	},
 	{
 		"agent": "athena",
@@ -23,7 +24,8 @@
 		"inline_assembly_argument_parameter_name": "",
 		"execute_assembly_command": "",
 		"execute_assembly_file_parameter_name": "",
-		"execute_assembly_argument_parameter_name": ""
+		"execute_assembly_argument_parameter_name": "",
+		"assembly_default_execution_method": "execute_assembly"
 	},
 	{
 		"agent": "xenon",
@@ -36,7 +38,8 @@
 		"inline_assembly_argument_parameter_name": "assembly_arguments",
 		"execute_assembly_command": "execute_assembly",
 		"execute_assembly_file_parameter_name": "assembly_file",
-		"execute_assembly_argument_parameter_name": "assembly_arguments"
+		"execute_assembly_argument_parameter_name": "assembly_arguments",
+		"assembly_default_execution_method": "execute_assembly"
 	},
 	{
 		"agent": "poopsie",
@@ -49,6 +52,7 @@
 		"inline_assembly_argument_parameter_name": "assembly_arguments",
 		"execute_assembly_command": "execute_assembly",
 		"execute_assembly_file_parameter_name": "assembly_file",
-		"execute_assembly_argument_parameter_name": "assembly_arguments"
+		"execute_assembly_argument_parameter_name": "assembly_arguments",
+		"assembly_default_execution_method": "execute_assembly"
 	}
 ]

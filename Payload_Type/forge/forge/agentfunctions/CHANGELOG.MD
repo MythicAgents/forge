@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.11] - 2026-03-12
+
+### Changed
+
+- Added new `assembly_default_execution_method` in `payload_type_support.json` to specify default execution method of `execute_assembly` or `inline_assembly`
+  - this can be changed at any time by simply editing the file through the paperclip icon on the `forge` page (no need to restart anything)
+  
 ## [0.0.10] - 2026-01-12
 
 ### Changed
