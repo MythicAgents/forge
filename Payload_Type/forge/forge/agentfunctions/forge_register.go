@@ -230,13 +230,12 @@ func init() {
 								TaskID:   taskData.Task.ID,
 								Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
 							})
-							newCommand, err := createBofCommand(commandSource, collectionSourceData, true)
+							err = createBofCommand(commandSource, collectionSourceData, true)
 							if err != nil {
 								response.Success = false
 								response.Error = err.Error()
 								return response
 							}
-							agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
 						}
 
 					default:

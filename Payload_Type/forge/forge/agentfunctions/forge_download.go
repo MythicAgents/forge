@@ -531,9 +531,31 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 	}
 	return newCommand
 }
-
+func deleteOlderVersions(filename string, taskID int, dontDeleteAgentFileID string) {
+	logging.LogInfo("deleting older versions of files", "filename", filename)
+	oldFilesSearch, err := mythicrpc.SendMythicRPCFileSearch(mythicrpc.MythicRPCFileSearchMessage{
+		TaskID:   taskID,
+		Filename: filename,
+	})
+	if err != nil {
+		logging.LogError(err, "failed to send file search request to Mythic")
+	} else {
+		for _, oldFile := range oldFilesSearch.Files {
+			if oldFile.AgentFileID != dontDeleteAgentFileID {
+				_, err = mythicrpc.SendMythicRPCFileUpdate(mythicrpc.MythicRPCFileUpdateMessage{
+					AgentFileID: oldFile.AgentFileID,
+					Delete:      true,
+				})
+				if err != nil {
+					logging.LogError(err, "failed to send file delete request to Mythic")
+				}
+			}
+		}
+	}
+}
 func downloadBofFile(commandSource collectionSourceCommandData, collectionSourceData collectionSource, taskData *agentstructs.PTTaskMessageAllData) error {
 	if len(commandSource.customBofFileIDs) > 0 {
+		logging.LogInfo("have custom bof ids, checking locally")
 		extractPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName) + string(os.PathSeparator)
 		err := os.MkdirAll(extractPath, os.ModePerm)
 		if err != nil {
@@ -567,6 +589,7 @@ func downloadBofFile(commandSource collectionSourceCommandData, collectionSource
 				logging.LogError(err, "failed to write file to disk")
 				return err
 			}
+			deleteOlderVersions(searchResp.Files[0].Filename, taskData.Task.ID, bofFile)
 		}
 		contentResp, err := mythicrpc.SendMythicRPCFileGetContent(mythicrpc.MythicRPCFileGetContentMessage{
 			AgentFileID: commandSource.customBofExtensionFileID,
@@ -586,7 +609,10 @@ func downloadBofFile(commandSource collectionSourceCommandData, collectionSource
 		}
 		return nil
 	}
-
+	if commandSource.CustomDownloadURL == "" && commandSource.RepoURL == "" {
+		logging.LogInfo("command is not downloadable, skipping download", "commandSource", commandSource)
+		return nil
+	}
 	downloadPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName+".tar.gz")
 	extractPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName) + string(os.PathSeparator)
 
@@ -711,6 +737,7 @@ type bofCommandDefinitionArguments struct {
 }
 type bofCommandDefinition struct {
 	Name            string                          `json:"name"`
+	PackageName     string                          `json:"package_name"`
 	Version         string                          `json:"version"`
 	CommandName     string                          `json:"command_name"`
 	ExtensionAuthor string                          `json:"extension_author"`
@@ -722,22 +749,27 @@ type bofCommandDefinition struct {
 	Entrypoint      string                          `json:"entrypoint"`
 	Files           []bofCommandDefinitionFiles     `json:"files"`
 	Arguments       []bofCommandDefinitionArguments `json:"arguments"`
+	Commands        []*bofCommandDefinition         `json:"commands,omitempty"`
 }
 
-func createBofCommand(commandSource collectionSourceCommandData, collectionSourceData collectionSource, addCommandToFile bool) (agentstructs.Command, error) {
+func createBofCommand(commandSource collectionSourceCommandData, collectionSourceData collectionSource, addCommandToFile bool) error {
 
 	bofCommandFolder := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName)
 	bofCommandExtensionFilePath := filepath.Join(bofCommandFolder, "extension.json")
 	bofCommandExtensionFile, err := os.ReadFile(bofCommandExtensionFilePath)
 	if err != nil {
 		logging.LogError(err, "failed to find extension.json file")
-		return agentstructs.Command{}, err
+		return err
 	}
 	bofCommandExtension := bofCommandDefinition{}
 	err = json.Unmarshal(bofCommandExtensionFile, &bofCommandExtension)
 	if err != nil {
 		logging.LogError(err, "failed to unmarshal extension.json file into struct")
-		return agentstructs.Command{}, err
+		return err
+	}
+	if bofCommandExtension.PackageName != "" {
+		logging.LogError(nil, "bof command has a package name, this is not supported")
+		return errors.New("bof command has a package name and bundled array of commands, this is not currently supported")
 	}
 	newCommandParameters := []agentstructs.CommandParameter{}
 	for i, arg := range bofCommandExtension.Arguments {
@@ -909,6 +941,7 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 			downloadPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName, targetFilename)
 			downloadFile, err := os.ReadFile(downloadPath)
 			if err != nil {
+				logging.LogError(err, "Failed to find path on disk", "path", downloadPath)
 				if errors.Is(err, os.ErrNotExist) {
 					// file doesn't exist on disk, try to fetch it first
 					fileContents, err := getOrCreateFile(collectionSourceData.SourceFilename)
@@ -928,6 +961,7 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 					for i, _ := range commandSources {
 						if commandSources[i].CommandName == commandSource.CommandName {
 							foundCommand = true
+							logging.LogInfo("found command to download", "command", commandSource.CommandName)
 							err = downloadBofFile(commandSources[i], collectionSourceData, taskData)
 							if err != nil {
 								response.Success = false
@@ -1058,41 +1092,42 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 		},
 	}
 	if !addCommandToFile {
-		return newCommand, nil
+		return nil
 	}
-	assemblyCommandsFile, err := getOrCreateFile(collectionSourceData.CommandsFilename)
+	bofCommandsFile, err := getOrCreateFile(collectionSourceData.CommandsFilename)
 	if err != nil {
 		logging.LogError(err, "Failed to read assembly commands file")
-		return newCommand, err
+		return err
 	}
-	assemblyCommands := []bofCommand{}
-	err = json.Unmarshal(assemblyCommandsFile, &assemblyCommands)
+	bofCommands := []bofCommand{}
+	err = json.Unmarshal(bofCommandsFile, &bofCommands)
 	if err != nil {
 		logging.LogError(err, "failed to parse assembly commands into struct")
-		return newCommand, err
+		return err
 	}
-	for i, _ := range assemblyCommands {
-		if assemblyCommands[i].CommandName == fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName) {
+	for i, _ := range bofCommands {
+		if bofCommands[i].CommandName == fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName) {
 			// we already have this command Registered, move along
-			return newCommand, nil
+			return nil
 		}
 	}
-	assemblyCommands = append(assemblyCommands, bofCommand{
+	bofCommands = append(bofCommands, bofCommand{
 		CommandName:           fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName),
 		CollectionType:        collectionSourceData.Name,
 		CollectionCommandName: commandSource.Name,
 	})
-	newAssemblyCommandsBytes, err := json.MarshalIndent(assemblyCommands, "", "\t")
+	newAssemblyCommandsBytes, err := json.MarshalIndent(bofCommands, "", "\t")
 	if err != nil {
 		logging.LogError(err, "failed to marshal assembly commands into JSON")
-		return newCommand, err
+		return err
 	}
 	err = os.WriteFile(collectionSourceData.CommandsFilename, newAssemblyCommandsBytes, os.ModePerm)
 	if err != nil {
 		logging.LogError(err, "failed to write out new commands to file")
-		return newCommand, err
+		return err
 	}
-	return newCommand, nil
+	agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
+	return nil
 }
 
 func init() {
@@ -1224,13 +1259,13 @@ func init() {
 							TaskID:   taskData.Task.ID,
 							Response: []byte(fmt.Sprintf("Registering new command %s%s\n", BofPrefix, commandSource.CommandName)),
 						})
-						newCommand, err := createBofCommand(commandSource, collectionSourceData, true)
+						err = createBofCommand(commandSource, collectionSourceData, true)
 						if err != nil {
 							response.Success = false
 							response.Error = err.Error()
 							return response
 						}
-						agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
+
 					default:
 					}
 

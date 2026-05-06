@@ -12,7 +12,7 @@ import (
 	"github.com/MythicMeta/MythicContainer/utils/sharedStructs"
 )
 
-const version = "0.0.11"
+const version = "0.0.12"
 const CollectionSources = "collection_sources.json"
 const PayloadTypeSupportFilename = "payload_type_support.json"
 const BofPrefix = "forge_bof_"
@@ -282,19 +282,18 @@ var payloadDefinition = agentstructs.PayloadType{
 				sourceCommands := []collectionSourceCommandData{}
 				err = json.Unmarshal(sourceCommandFile, &sourceCommands)
 				if err != nil {
-					logging.LogError(err, "failed to parse assembly commands into struct")
-					response.EventLogErrorMessage = "failed to parse assembly commands into struct"
+					logging.LogError(err, "failed to parse bof commands into struct")
+					response.EventLogErrorMessage = "failed to parse bof commands into struct"
 					return response
 				}
 				for _, registeredCommand := range registeredCommands {
 					for _, sourceCommand := range sourceCommands {
 						if registeredCommand.CollectionCommandName == sourceCommand.Name {
-							newCommand, err := createBofCommand(sourceCommand, source, false)
+							err = createBofCommand(sourceCommand, source, false)
 							if err != nil {
 								logging.LogError(err, "failed to create bof command")
 								continue
 							}
-							agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
 						}
 					}
 				}

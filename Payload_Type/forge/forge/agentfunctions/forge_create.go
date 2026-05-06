@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
+
 	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
 	"github.com/MythicMeta/MythicContainer/logging"
 	"github.com/MythicMeta/MythicContainer/mythicrpc"
 	"github.com/MythicMeta/MythicContainer/rabbitmq"
-	"os"
 )
 
 const assemblyGroup = "Create New .NET Assembly Command"
@@ -349,13 +350,12 @@ func init() {
 					response.Error = err.Error()
 					return response
 				}
-				newCommand, err := createBofCommand(newCommandSource, collectionSourceData, true)
+				err = createBofCommand(newCommandSource, collectionSourceData, true)
 				if err != nil {
 					response.Success = false
 					response.Error = err.Error()
 					return response
 				}
-				agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
 			}
 			rabbitmq.SyncPayloadData(&payloadDefinition.Name, false)
 			response.Success = true
