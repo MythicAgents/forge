@@ -243,6 +243,10 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 	if commandSource.CustomVersion != "" {
 		defaultChoices = []string{commandSource.CustomVersion}
 	}
+	defaultExecutionMethod := "execute_assembly"
+	if commandSource.ExecutionMethod != "" {
+		defaultExecutionMethod = commandSource.ExecutionMethod
+	}
 	newCommand := agentstructs.Command{
 		Name:                fmt.Sprintf("%s%s", AssemblyPrefix, commandSource.CommandName),
 		Description:         fmt.Sprintf("%s\nFrom: %s", commandSource.Description, originatingSource),
@@ -288,7 +292,7 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 				ParameterType:    agentstructs.COMMAND_PARAMETER_TYPE_CHOOSE_ONE,
 				Choices:          []string{"inline_assembly", "execute_assembly"},
 				Description:      "Specify how the assembly should execute. Execute_assembly is a fork-and-run style architecture, inline_assembly is within the current process.",
-				DefaultValue:     "execute_assembly",
+				DefaultValue:     defaultExecutionMethod,
 				ModalDisplayName: "Execution Options",
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
 					{
