@@ -1,6 +1,7 @@
 package agentfunctions
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -96,7 +97,7 @@ func init() {
 				ParameterType:    agentstructs.COMMAND_PARAMETER_TYPE_CHOOSE_ONE_CUSTOM,
 				Description:      "Choose which collection to query",
 				ModalDisplayName: "Collection Name to Query",
-				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
+				DynamicQueryFunction: func(ctx context.Context, message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
 					return getCollectionSourceNameOptions(message)
 				},
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
@@ -130,7 +131,7 @@ func init() {
 				},
 			},
 		},
-		TaskFunctionCreateTasking: func(taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
+		TaskFunctionCreateTasking: func(ctx context.Context, taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
 			response := agentstructs.PTTaskCreateTaskingMessageResponse{
 				Success: true,
 				TaskID:  taskData.Task.ID,
@@ -191,7 +192,7 @@ func init() {
 					case "assembly":
 						prefixedCommandName = fmt.Sprintf("%s%s", AssemblyPrefix, commandSource.CommandName)
 						if remove {
-							mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+							mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
 								TaskID:   taskData.Task.ID,
 								Response: []byte(fmt.Sprintf("Removing command %s\n", prefixedCommandName)),
 							})
@@ -203,7 +204,7 @@ func init() {
 							}
 							agentstructs.AllPayloadData.Get(PayloadTypeName).RemoveCommand(agentstructs.Command{Name: prefixedCommandName})
 						} else {
-							mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+							mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
 								TaskID:   taskData.Task.ID,
 								Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
 							})
@@ -214,7 +215,7 @@ func init() {
 					case "bof":
 						prefixedCommandName = fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName)
 						if remove {
-							mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+							mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
 								TaskID:   taskData.Task.ID,
 								Response: []byte(fmt.Sprintf("Removing command %s\n", prefixedCommandName)),
 							})
@@ -226,7 +227,7 @@ func init() {
 							}
 							agentstructs.AllPayloadData.Get(PayloadTypeName).RemoveCommand(agentstructs.Command{Name: prefixedCommandName})
 						} else {
-							mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+							mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
 								TaskID:   taskData.Task.ID,
 								Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
 							})
@@ -264,7 +265,7 @@ func init() {
 						for i, payloadType := range payloadTypes {
 							payloadTypeNames[i] = payloadType.Agent
 						}
-						callbacksSearchResp, err := mythicrpc.SendMythicRPCCallbackSearch(mythicrpc.MythicRPCCallbackSearchMessage{
+						callbacksSearchResp, err := mythicrpc.SendMythicRPCCallbackSearch(ctx, mythicrpc.MythicRPCCallbackSearchMessage{
 							AgentCallbackID:            taskData.Callback.AgentCallbackID,
 							SearchCallbackPayloadTypes: &payloadTypeNames,
 						})
@@ -284,7 +285,7 @@ func init() {
 						for i, callback := range callbacksSearchResp.Results {
 							callbackIDs[i] = callback.ID
 						}
-						callbacksRemoveCommandResp, err := mythicrpc.SendMythicRPCCallbackRemoveCommand(mythicrpc.MythicRPCCallbackRemoveCommandMessage{
+						callbacksRemoveCommandResp, err := mythicrpc.SendMythicRPCCallbackRemoveCommand(ctx, mythicrpc.MythicRPCCallbackRemoveCommandMessage{
 							TaskID:      taskData.Task.ID,
 							PayloadType: PayloadTypeName,
 							CallbackIDs: callbackIDs,
@@ -304,12 +305,12 @@ func init() {
 							response.Error = callbacksSearchResp.Error
 							return response
 						}
-						mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+						mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
 							TaskID:   taskData.Task.ID,
 							Response: []byte(fmt.Sprintf("Command Removed from use!\n")),
 						})
 					} else {
-						mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+						mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
 							TaskID:   taskData.Task.ID,
 							Response: []byte(fmt.Sprintf("Command Registered for use!\n")),
 						})
@@ -321,10 +322,10 @@ func init() {
 			response.Error = "Failed to find that command in " + collectionSourceData.SourceFilename
 			return response
 		},
-		TaskFunctionParseArgDictionary: func(args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
+		TaskFunctionParseArgDictionary: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
 			return args.LoadArgsFromDictionary(input)
 		},
-		TaskFunctionParseArgString: func(args *agentstructs.PTTaskMessageArgsData, input string) error {
+		TaskFunctionParseArgString: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input string) error {
 			if len(input) > 0 {
 				return args.LoadArgsFromJSONString(input)
 			}

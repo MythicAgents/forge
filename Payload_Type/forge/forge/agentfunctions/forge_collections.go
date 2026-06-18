@@ -1,6 +1,7 @@
 package agentfunctions
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -35,7 +36,7 @@ func init() {
 				ParameterType:    agentstructs.COMMAND_PARAMETER_TYPE_CHOOSE_ONE_CUSTOM,
 				Description:      "Choose which collection to query",
 				ModalDisplayName: "Collection Name to Query",
-				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
+				DynamicQueryFunction: func(ctx context.Context, message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
 					return getCollectionSourceNameOptions(message)
 				},
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
@@ -45,7 +46,7 @@ func init() {
 				},
 			},
 		},
-		TaskFunctionCreateTasking: func(taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
+		TaskFunctionCreateTasking: func(ctx context.Context, taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
 			response := agentstructs.PTTaskCreateTaskingMessageResponse{
 				Success: true,
 				TaskID:  taskData.Task.ID,
@@ -92,7 +93,7 @@ func init() {
 				}
 
 			}
-			commandSearchResp, err := mythicrpc.SendMythicRPCCallbackSearchCommand(mythicrpc.MythicRPCCallbackSearchCommandMessage{
+			commandSearchResp, err := mythicrpc.SendMythicRPCCallbackSearchCommand(ctx, mythicrpc.MythicRPCCallbackSearchCommandMessage{
 				CallbackID:         &taskData.Callback.ID,
 				SearchCommandNames: &commandNames,
 			})
@@ -167,7 +168,7 @@ func init() {
 				response.Error = err.Error()
 				return response
 			}
-			resp, err := mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
+			resp, err := mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
 				TaskID:   taskData.Task.ID,
 				Response: commandOptionBytes,
 			})
@@ -183,10 +184,10 @@ func init() {
 			}
 			return response
 		},
-		TaskFunctionParseArgDictionary: func(args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
+		TaskFunctionParseArgDictionary: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
 			return args.LoadArgsFromDictionary(input)
 		},
-		TaskFunctionParseArgString: func(args *agentstructs.PTTaskMessageArgsData, input string) error {
+		TaskFunctionParseArgString: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input string) error {
 			return args.LoadArgsFromJSONString(input)
 		},
 	})
