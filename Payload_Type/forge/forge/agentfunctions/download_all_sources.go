@@ -2,8 +2,9 @@ package agentfunctions
 
 import (
 	"encoding/json"
-	"github.com/MythicMeta/MythicContainer/logging"
 	"sync"
+
+	"github.com/MythicMeta/MythicContainer/logging"
 )
 
 func DownloadEverything() {

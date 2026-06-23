@@ -82,13 +82,13 @@ func init() {
 				response.Error = err.Error()
 				return response
 			}
-			commandNames := make([]string, len(commandSources))
+			commandNames := []string{}
 			for i, _ := range commandSources {
 				switch collectionSourceData.Type {
 				case "assembly":
-					commandNames[i] = fmt.Sprintf("%s%s", AssemblyPrefix, commandSources[i].CommandName)
+					commandNames = append(commandNames, fmt.Sprintf("%s%s", AssemblyPrefix, commandSources[i].CommandName))
 				case "bof":
-					commandNames[i] = fmt.Sprintf("%s%s", BofPrefix, commandSources[i].CommandName)
+					commandNames = append(commandNames, getBofCommandNamesForSource(commandSources[i], collectionSourceData)...)
 				}
 
 			}
@@ -139,19 +139,26 @@ func init() {
 
 				case "bof":
 					_, err = os.Stat(filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSources[i].CommandName, "extension.json"))
+					bofCommandNames := getBofCommandNamesForSource(commandSources[i], collectionSourceData)
 					commandSources[i].CommandName = fmt.Sprintf("%s%s", BofPrefix, commandSources[i].CommandName)
 					if err == nil {
 						commandSources[i].Downloaded = true
+					}
+					for _, registeredCommand := range commandSearchResp.Commands {
+						for _, bofCommandName := range bofCommandNames {
+							if bofCommandName == registeredCommand.Name {
+								commandSources[i].Registered = true
+								break
+							}
+						}
+						if commandSources[i].Registered {
+							break
+						}
 					}
 				}
 				for _, registeredCommand := range commandSearchResp.Commands {
 					switch collectionSourceData.Type {
 					case "assembly":
-						if commandSources[i].CommandName == registeredCommand.Name {
-							commandSources[i].Registered = true
-							break
-						}
-					case "bof":
 						if commandSources[i].CommandName == registeredCommand.Name {
 							commandSources[i].Registered = true
 							break

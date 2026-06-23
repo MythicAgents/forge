@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
 	"github.com/MythicMeta/MythicContainer/logging"
@@ -51,24 +52,33 @@ func removeCommandFromFile(commandSource collectionSourceCommandData, collection
 			logging.LogError(err, "failed to parse assembly commands into struct")
 			return err
 		}
-		for i, _ := range commands {
-			if commands[i].CommandName == fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName) {
-				// we found the one to remove
-				commands = append(commands[:i], commands[i+1:]...)
-				newAssemblyCommandsBytes, err := json.MarshalIndent(commands, "", "\t")
-				if err != nil {
-					logging.LogError(err, "failed to marshal commands into JSON")
-					return err
-				}
-				err = os.WriteFile(collectionSourceData.CommandsFilename, newAssemblyCommandsBytes, os.ModePerm)
-				if err != nil {
-					logging.LogError(err, "failed to write out new commands to file")
-					return err
-				}
-				return nil
-			}
+		commandNamesToRemove := make(map[string]bool)
+		for _, commandName := range getBofCommandNamesForRemoval(commandSource, collectionSourceData) {
+			commandNamesToRemove[commandName] = true
 		}
-		// never found the command, so it's essentially removed
+		filteredCommands := make([]bofCommand, 0, len(commands))
+		removedCommand := false
+		for _, command := range commands {
+			if commandNamesToRemove[command.CommandName] || command.CollectionCommandName == commandSource.Name {
+				removedCommand = true
+				continue
+			}
+			filteredCommands = append(filteredCommands, command)
+		}
+		if !removedCommand {
+			// never found the command, so it's essentially removed
+			return nil
+		}
+		newAssemblyCommandsBytes, err := json.MarshalIndent(filteredCommands, "", "\t")
+		if err != nil {
+			logging.LogError(err, "failed to marshal commands into JSON")
+			return err
+		}
+		err = os.WriteFile(collectionSourceData.CommandsFilename, newAssemblyCommandsBytes, os.ModePerm)
+		if err != nil {
+			logging.LogError(err, "failed to write out new commands to file")
+			return err
+		}
 		return nil
 
 	}
@@ -184,12 +194,13 @@ func init() {
 				response.Error = err.Error()
 				return response
 			}
-			var prefixedCommandName string
+			prefixedCommandNames := []string{}
 			for _, commandSource := range commandSources {
 				if commandSource.Name == commandName {
 					switch collectionSourceData.Type {
 					case "assembly":
-						prefixedCommandName = fmt.Sprintf("%s%s", AssemblyPrefix, commandSource.CommandName)
+						prefixedCommandName := fmt.Sprintf("%s%s", AssemblyPrefix, commandSource.CommandName)
+						prefixedCommandNames = []string{prefixedCommandName}
 						if remove {
 							mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 								TaskID:   taskData.Task.ID,
@@ -208,15 +219,18 @@ func init() {
 								Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
 							})
 							newCommand := createAssemblyCommand(commandSource, collectionSourceData, true)
-							agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
+							addOrReplaceForgeCommand(newCommand)
 						}
 
 					case "bof":
-						prefixedCommandName = fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName)
+						prefixedCommandNames = getBofCommandNamesForSource(commandSource, collectionSourceData)
+						prefixedCommandNamesText := strings.Join(prefixedCommandNames, ", ")
 						if remove {
+							prefixedCommandNames = getBofCommandNamesForRemoval(commandSource, collectionSourceData)
+							prefixedCommandNamesText = strings.Join(prefixedCommandNames, ", ")
 							mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 								TaskID:   taskData.Task.ID,
-								Response: []byte(fmt.Sprintf("Removing command %s\n", prefixedCommandName)),
+								Response: []byte(fmt.Sprintf("Removing command(s) %s\n", prefixedCommandNamesText)),
 							})
 							err = removeCommandFromFile(commandSource, collectionSourceData)
 							if err != nil {
@@ -224,11 +238,13 @@ func init() {
 								response.Success = false
 								response.Error = err.Error()
 							}
-							agentstructs.AllPayloadData.Get(PayloadTypeName).RemoveCommand(agentstructs.Command{Name: prefixedCommandName})
+							for _, prefixedCommandName := range prefixedCommandNames {
+								agentstructs.AllPayloadData.Get(PayloadTypeName).RemoveCommand(agentstructs.Command{Name: prefixedCommandName})
+							}
 						} else {
 							mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 								TaskID:   taskData.Task.ID,
-								Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
+								Response: []byte(fmt.Sprintf("Registering new command(s) %s\n", prefixedCommandNamesText)),
 							})
 							err = createBofCommand(commandSource, collectionSourceData, true)
 							if err != nil {
@@ -288,9 +304,7 @@ func init() {
 							TaskID:      taskData.Task.ID,
 							PayloadType: PayloadTypeName,
 							CallbackIDs: callbackIDs,
-							Commands: []string{
-								prefixedCommandName,
-							},
+							Commands:    prefixedCommandNames,
 						})
 						if err != nil {
 							logging.LogError(err, "failed to send mythicrpc message to mythic to remove commands")

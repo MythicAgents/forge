@@ -752,25 +752,133 @@ type bofCommandDefinition struct {
 	Commands        []*bofCommandDefinition         `json:"commands,omitempty"`
 }
 
-func createBofCommand(commandSource collectionSourceCommandData, collectionSourceData collectionSource, addCommandToFile bool) error {
-
+func loadBofCommandDefinitions(commandSource collectionSourceCommandData, collectionSourceData collectionSource) ([]bofCommandDefinition, error) {
 	bofCommandFolder := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName)
 	bofCommandExtensionFilePath := filepath.Join(bofCommandFolder, "extension.json")
 	bofCommandExtensionFile, err := os.ReadFile(bofCommandExtensionFilePath)
 	if err != nil {
-		logging.LogError(err, "failed to find extension.json file")
-		return err
+		return nil, err
 	}
 	bofCommandExtension := bofCommandDefinition{}
 	err = json.Unmarshal(bofCommandExtensionFile, &bofCommandExtension)
 	if err != nil {
-		logging.LogError(err, "failed to unmarshal extension.json file into struct")
-		return err
+		return nil, err
 	}
-	if bofCommandExtension.PackageName != "" {
-		logging.LogError(nil, "bof command has a package name, this is not supported")
-		return errors.New("bof command has a package name and bundled array of commands, this is not currently supported")
+	commandDefinitions := expandBofCommandDefinitions(bofCommandExtension)
+	if len(commandDefinitions) == 0 {
+		return nil, errors.New("extension.json does not define any commands")
 	}
+	return commandDefinitions, nil
+}
+
+func expandBofCommandDefinitions(packageDefinition bofCommandDefinition) []bofCommandDefinition {
+	if len(packageDefinition.Commands) == 0 {
+		if packageDefinition.CommandName == "" {
+			return nil
+		}
+		return []bofCommandDefinition{packageDefinition}
+	}
+
+	commandDefinitions := make([]bofCommandDefinition, 0, len(packageDefinition.Commands))
+	for _, commandDefinition := range packageDefinition.Commands {
+		if commandDefinition == nil {
+			continue
+		}
+		concreteCommand := *commandDefinition
+		inheritBofCommandMetadata(&concreteCommand, packageDefinition)
+		if concreteCommand.CommandName == "" {
+			continue
+		}
+		commandDefinitions = append(commandDefinitions, concreteCommand)
+	}
+	return commandDefinitions
+}
+
+func inheritBofCommandMetadata(commandDefinition *bofCommandDefinition, packageDefinition bofCommandDefinition) {
+	if commandDefinition.Name == "" {
+		commandDefinition.Name = packageDefinition.Name
+	}
+	if commandDefinition.Version == "" {
+		commandDefinition.Version = packageDefinition.Version
+	}
+	if commandDefinition.ExtensionAuthor == "" {
+		commandDefinition.ExtensionAuthor = packageDefinition.ExtensionAuthor
+	}
+	if commandDefinition.OriginalAuthor == "" {
+		commandDefinition.OriginalAuthor = packageDefinition.OriginalAuthor
+	}
+	if commandDefinition.RepoURL == "" {
+		commandDefinition.RepoURL = packageDefinition.RepoURL
+	}
+	if commandDefinition.Help == "" {
+		commandDefinition.Help = packageDefinition.Help
+	}
+	if commandDefinition.LongHelp == "" {
+		commandDefinition.LongHelp = commandDefinition.Help
+	}
+	if commandDefinition.DependsOn == "" {
+		commandDefinition.DependsOn = packageDefinition.DependsOn
+	}
+	if commandDefinition.Entrypoint == "" {
+		commandDefinition.Entrypoint = packageDefinition.Entrypoint
+	}
+	if len(commandDefinition.Files) == 0 {
+		commandDefinition.Files = packageDefinition.Files
+	}
+	if commandDefinition.Arguments == nil {
+		commandDefinition.Arguments = packageDefinition.Arguments
+	}
+}
+
+func getBofCommandSourceName(commandDefinition bofCommandDefinition) string {
+	if commandDefinition.CommandName != "" {
+		return commandDefinition.CommandName
+	}
+	if commandDefinition.PackageName != "" {
+		return commandDefinition.PackageName
+	}
+	if len(commandDefinition.Commands) == 1 && commandDefinition.Commands[0] != nil {
+		return commandDefinition.Commands[0].CommandName
+	}
+	return ""
+}
+
+func bofCommandNamesFromDefinitions(commandDefinitions []bofCommandDefinition, fallbackCommandName string) []string {
+	commandNames := make([]string, 0, len(commandDefinitions))
+	seen := make(map[string]bool)
+	for _, commandDefinition := range commandDefinitions {
+		commandName := commandDefinition.CommandName
+		if commandName == "" {
+			commandName = fallbackCommandName
+		}
+		prefixedCommandName := fmt.Sprintf("%s%s", BofPrefix, commandName)
+		if !seen[prefixedCommandName] {
+			commandNames = append(commandNames, prefixedCommandName)
+			seen[prefixedCommandName] = true
+		}
+	}
+	return commandNames
+}
+
+func getBofCommandNamesForSource(commandSource collectionSourceCommandData, collectionSourceData collectionSource) []string {
+	fallbackCommandName := fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName)
+	commandDefinitions, err := loadBofCommandDefinitions(commandSource, collectionSourceData)
+	if err != nil {
+		return []string{fallbackCommandName}
+	}
+	return bofCommandNamesFromDefinitions(commandDefinitions, commandSource.CommandName)
+}
+
+func getBofCommandNamesForRemoval(commandSource collectionSourceCommandData, collectionSourceData collectionSource) []string {
+	fallbackCommandName := fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName)
+	commandNames := getBofCommandNamesForSource(commandSource, collectionSourceData)
+	if !slices.Contains(commandNames, fallbackCommandName) {
+		commandNames = append(commandNames, fallbackCommandName)
+	}
+	return commandNames
+}
+
+func buildBofCommand(commandSource collectionSourceCommandData, collectionSourceData collectionSource, bofCommandExtension bofCommandDefinition) agentstructs.Command {
 	newCommandParameters := []agentstructs.CommandParameter{}
 	for i, arg := range bofCommandExtension.Arguments {
 		newType := agentstructs.COMMAND_PARAMETER_TYPE_STRING
@@ -812,11 +920,15 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 		}
 		newCommandParameters = append(newCommandParameters, newArg)
 	}
-	newCommand := agentstructs.Command{
+	helpString := bofCommandExtension.LongHelp
+	if helpString == "" {
+		helpString = bofCommandExtension.Help
+	}
+	return agentstructs.Command{
 		Name: fmt.Sprintf("%s%s", BofPrefix, bofCommandExtension.CommandName),
 		Description: fmt.Sprintf("%s\nFrom: %s\nVersion: %s",
 			bofCommandExtension.Help, bofCommandExtension.RepoURL, bofCommandExtension.Version),
-		HelpString: bofCommandExtension.LongHelp,
+		HelpString: helpString,
 		Version:    1,
 		Author: fmt.Sprintf("Original: %s, Extension: %s",
 			bofCommandExtension.OriginalAuthor, bofCommandExtension.ExtensionAuthor),
@@ -985,7 +1097,7 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 				TaskID:     taskData.Task.ID,
 				Filename:   targetFilename,
 				MaxResults: 1,
-				Comment:    fmt.Sprintf("Community Collection's %s version %s", commandSource.CommandName, targetFilename),
+				Comment:    fmt.Sprintf("Community Collection's %s version %s", bofCommandExtension.CommandName, targetFilename),
 			})
 			if err != nil {
 				response.Success = false
@@ -1006,7 +1118,7 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 				uploadResponse, err := mythicrpc.SendMythicRPCFileCreate(mythicrpc.MythicRPCFileCreateMessage{
 					TaskID:       taskData.Task.ID,
 					Filename:     targetFilename,
-					Comment:      fmt.Sprintf("Community Collection's %s version %s", commandSource.CommandName, targetFilename),
+					Comment:      fmt.Sprintf("Community Collection's %s version %s", bofCommandExtension.CommandName, targetFilename),
 					FileContents: downloadFile,
 				})
 				if err != nil {
@@ -1091,9 +1203,9 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 			return nil
 		},
 	}
-	if !addCommandToFile {
-		return nil
-	}
+}
+
+func addBofCommandsToFile(commandSource collectionSourceCommandData, collectionSourceData collectionSource, commandNames []string) error {
 	bofCommandsFile, err := getOrCreateFile(collectionSourceData.CommandsFilename)
 	if err != nil {
 		logging.LogError(err, "Failed to read assembly commands file")
@@ -1105,17 +1217,30 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 		logging.LogError(err, "failed to parse assembly commands into struct")
 		return err
 	}
-	for i, _ := range bofCommands {
-		if bofCommands[i].CommandName == fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName) {
-			// we already have this command Registered, move along
-			return nil
-		}
+	existingCommandNames := make(map[string]bool)
+	for _, command := range bofCommands {
+		existingCommandNames[command.CommandName] = true
 	}
-	bofCommands = append(bofCommands, bofCommand{
-		CommandName:           fmt.Sprintf("%s%s", BofPrefix, commandSource.CommandName),
-		CollectionType:        collectionSourceData.Name,
-		CollectionCommandName: commandSource.Name,
-	})
+	collectionCommandName := commandSource.Name
+	if collectionCommandName == "" {
+		collectionCommandName = commandSource.CommandName
+	}
+	updated := false
+	for _, commandName := range commandNames {
+		if existingCommandNames[commandName] {
+			continue
+		}
+		bofCommands = append(bofCommands, bofCommand{
+			CommandName:           commandName,
+			CollectionType:        collectionSourceData.Name,
+			CollectionCommandName: collectionCommandName,
+		})
+		existingCommandNames[commandName] = true
+		updated = true
+	}
+	if !updated {
+		return nil
+	}
 	newAssemblyCommandsBytes, err := json.MarshalIndent(bofCommands, "", "\t")
 	if err != nil {
 		logging.LogError(err, "failed to marshal assembly commands into JSON")
@@ -1126,7 +1251,27 @@ func createBofCommand(commandSource collectionSourceCommandData, collectionSourc
 		logging.LogError(err, "failed to write out new commands to file")
 		return err
 	}
-	agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
+	return nil
+}
+
+func createBofCommand(commandSource collectionSourceCommandData, collectionSourceData collectionSource, addCommandToFile bool) error {
+	commandDefinitions, err := loadBofCommandDefinitions(commandSource, collectionSourceData)
+	if err != nil {
+		return err
+	}
+	newCommands := make([]agentstructs.Command, 0, len(commandDefinitions))
+	for _, commandDefinition := range commandDefinitions {
+		newCommands = append(newCommands, buildBofCommand(commandSource, collectionSourceData, commandDefinition))
+	}
+	if addCommandToFile {
+		commandNames := bofCommandNamesFromDefinitions(commandDefinitions, commandSource.CommandName)
+		if err := addBofCommandsToFile(commandSource, collectionSourceData, commandNames); err != nil {
+			return err
+		}
+	}
+	for _, newCommand := range newCommands {
+		addOrReplaceForgeCommand(newCommand)
+	}
 	return nil
 }
 
@@ -1247,7 +1392,7 @@ func init() {
 							Response: []byte(fmt.Sprintf("Registering new command %s%s\n", AssemblyPrefix, commandSource.CommandName)),
 						})
 						newCommand := createAssemblyCommand(commandSource, collectionSourceData, true)
-						agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
+						addOrReplaceForgeCommand(newCommand)
 					case "bof":
 						err = downloadBofFile(commandSource, collectionSourceData, taskData)
 						if err != nil {
@@ -1255,9 +1400,10 @@ func init() {
 							response.Error = err.Error()
 							return response
 						}
+						prefixedCommandNames := strings.Join(getBofCommandNamesForSource(commandSource, collectionSourceData), ", ")
 						mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 							TaskID:   taskData.Task.ID,
-							Response: []byte(fmt.Sprintf("Registering new command %s%s\n", BofPrefix, commandSource.CommandName)),
+							Response: []byte(fmt.Sprintf("Registering new command(s) %s\n", prefixedCommandNames)),
 						})
 						err = createBofCommand(commandSource, collectionSourceData, true)
 						if err != nil {
