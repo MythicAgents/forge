@@ -1,14 +1,13 @@
 package agentfunctions
 
 import (
-	"context"
 	"encoding/json"
-	"github.com/MythicMeta/MythicContainer/logging"
 	"sync"
+
+	"github.com/MythicMeta/MythicContainer/logging"
 )
 
 func DownloadEverything() {
-	ctx := context.Background()
 	collections := getCollectionSources()
 	wg := sync.WaitGroup{}
 	for _, collectionSourceData := range collections {
@@ -28,7 +27,7 @@ func DownloadEverything() {
 					if commandSource.CustomDownloadURL != "" {
 						logging.LogInfo("[*] Starting download", "source", collectionSourceData.Name,
 							"command", commandSource.Name, "version", commandSource.CustomVersion)
-						err = downloadAssemblyFile(ctx, commandSource, commandSource.CustomVersion, collectionSourceData, nil)
+						err = downloadAssemblyFile(commandSource, commandSource.CustomVersion, collectionSourceData, nil)
 						if err != nil {
 							logging.LogError(err, "[!] failed to download assembly file", "source", collectionSourceData.Name,
 								"command", commandSource.Name, "version", commandSource.CustomVersion)
@@ -44,7 +43,7 @@ func DownloadEverything() {
 						for _, assemblyVersion := range assemblyVersions {
 							logging.LogInfo("[*] Starting download", "source", collectionSourceData.Name,
 								"command", commandSource.Name, "version", assemblyVersion)
-							err = downloadAssemblyFile(ctx, commandSource, assemblyVersion, collectionSourceData, nil)
+							err = downloadAssemblyFile(commandSource, assemblyVersion, collectionSourceData, nil)
 							if err == nil {
 								atLeastOneSuccess = true
 								logging.LogInfo("[*] Successfully downloaded", "source", collectionSourceData.Name, "command", commandSource.Name, "version", assemblyVersion)
@@ -61,7 +60,7 @@ func DownloadEverything() {
 				case "bof":
 					logging.LogInfo("[*] Starting download", "source", collectionSourceData.Name,
 						"command", commandSource.Name, "version", "bof")
-					err = downloadBofFile(ctx, commandSource, collectionSourceData, nil)
+					err = downloadBofFile(commandSource, collectionSourceData, nil)
 					if err != nil {
 						logging.LogError(err, "[!] failed to download bof file", "source", collectionSourceData.Name,
 							"command", commandSource.Name)

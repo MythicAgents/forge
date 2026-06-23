@@ -1,7 +1,6 @@
 package agentfunctions
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -34,7 +33,7 @@ func init() {
 				Description:      "Choose which payload type to modify support for",
 				ModalDisplayName: "Payload Type",
 				DefaultValue:     "",
-				DynamicQueryFunction: func(ctx context.Context, message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
+				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
 					supportedAgentsFile, err := getOrCreateFile(PayloadTypeSupportFilename)
 					if err != nil {
 						logging.LogError(err, "failed to get supported payload types file")
@@ -229,7 +228,7 @@ func init() {
 				},
 			},
 		},
-		TaskFunctionCreateTasking: func(ctx context.Context, taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
+		TaskFunctionCreateTasking: func(taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
 			response := agentstructs.PTTaskCreateTaskingMessageResponse{
 				Success: true,
 				TaskID:  taskData.Task.ID,
@@ -303,22 +302,22 @@ func init() {
 			Initialize()
 			rabbitmq.SyncPayloadData(&payloadDefinition.Name, false)
 			if remove {
-				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
 					Response: []byte(fmt.Sprintf("Successfully removed support for %s", inputAgent)),
 				})
 			} else {
-				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
 					Response: []byte(fmt.Sprintf("Successfully added support for %s", inputAgent)),
 				})
 			}
 			return response
 		},
-		TaskFunctionParseArgDictionary: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
+		TaskFunctionParseArgDictionary: func(args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
 			return args.LoadArgsFromDictionary(input)
 		},
-		TaskFunctionParseArgString: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input string) error {
+		TaskFunctionParseArgString: func(args *agentstructs.PTTaskMessageArgsData, input string) error {
 			return args.LoadArgsFromJSONString(input)
 		},
 	})

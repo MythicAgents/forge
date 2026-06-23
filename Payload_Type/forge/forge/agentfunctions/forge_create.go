@@ -1,7 +1,6 @@
 package agentfunctions
 
 import (
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -38,7 +37,7 @@ func init() {
 				ParameterType:    agentstructs.COMMAND_PARAMETER_TYPE_CHOOSE_ONE_CUSTOM,
 				Description:      "Choose which collection to associate this new command with",
 				ModalDisplayName: "Collection Name",
-				DynamicQueryFunction: func(ctx context.Context, message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
+				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
 					return getCollectionSourceNameOptions(message)
 				},
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
@@ -106,7 +105,7 @@ func init() {
 				Description:      "What version is this assembly",
 				ModalDisplayName: "Version",
 				DefaultValue:     "4.7_Any",
-				DynamicQueryFunction: func(ctx context.Context, message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
+				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
 					return assemblyVersions
 				},
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
@@ -144,7 +143,7 @@ func init() {
 				},
 			},
 		},
-		TaskFunctionCreateTasking: func(ctx context.Context, taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
+		TaskFunctionCreateTasking: func(taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
 			response := agentstructs.PTTaskCreateTaskingMessageResponse{
 				Success: true,
 				TaskID:  taskData.Task.ID,
@@ -186,7 +185,7 @@ func init() {
 					response.Success = false
 					return response
 				}
-				contentResp, err := mythicrpc.SendMythicRPCFileGetContent(ctx, mythicrpc.MythicRPCFileGetContentMessage{
+				contentResp, err := mythicrpc.SendMythicRPCFileGetContent(mythicrpc.MythicRPCFileGetContentMessage{
 					AgentFileID: extensionFileID,
 				})
 				if err != nil {
@@ -305,14 +304,14 @@ func init() {
 				prefixedCommandName = fmt.Sprintf("%s%s", AssemblyPrefix, commandName)
 				newCommandSource.customAssemblyFileID = commandFileID
 				newCommandSource.CustomVersion = commandVersion
-				err = downloadAssemblyFile(ctx, newCommandSource, commandVersion, collectionSourceData, taskData)
+				err = downloadAssemblyFile(newCommandSource, commandVersion, collectionSourceData, taskData)
 				if err != nil {
 					logging.LogError(err, "failed to download file to container")
 					response.Success = false
 					response.Error = err.Error()
 					return response
 				}
-				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
 					Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
 				})
@@ -343,13 +342,13 @@ func init() {
 					response.Success = false
 					return response
 				}
-				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
 					Response: []byte("Registering new BOF command(s)\n"),
 				})
 				newCommandSource.customBofExtensionFileID = extensionFileID
 				newCommandSource.customBofFileIDs = commandFileIDs
-				err = downloadBofFile(ctx, newCommandSource, collectionSourceData, taskData)
+				err = downloadBofFile(newCommandSource, collectionSourceData, taskData)
 				if err != nil {
 					logging.LogError(err, "failed to download files to container")
 					response.Success = false
@@ -357,7 +356,7 @@ func init() {
 					return response
 				}
 				prefixedCommandNames := strings.Join(getBofCommandNamesForSource(newCommandSource, collectionSourceData), ", ")
-				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
 					Response: []byte(fmt.Sprintf("Registering new command(s) %s\n", prefixedCommandNames)),
 				})
@@ -390,16 +389,16 @@ func init() {
 				response.Error = err.Error()
 				return response
 			}
-			mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+			mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 				TaskID:   taskData.Task.ID,
 				Response: []byte(fmt.Sprintf("Command Registered for use!\n")),
 			})
 			return response
 		},
-		TaskFunctionParseArgDictionary: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
+		TaskFunctionParseArgDictionary: func(args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
 			return args.LoadArgsFromDictionary(input)
 		},
-		TaskFunctionParseArgString: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input string) error {
+		TaskFunctionParseArgString: func(args *agentstructs.PTTaskMessageArgsData, input string) error {
 			if len(input) > 0 {
 				return args.LoadArgsFromJSONString(input)
 			}

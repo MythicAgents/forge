@@ -1,7 +1,6 @@
 package agentfunctions
 
 import (
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -13,7 +12,7 @@ import (
 	"github.com/MythicMeta/MythicContainer/utils/sharedStructs"
 )
 
-const version = "0.0.12"
+const version = "0.0.13"
 const CollectionSources = "collection_sources.json"
 const PayloadTypeSupportFilename = "payload_type_support.json"
 const BofPrefix = "forge_bof_"
@@ -237,7 +236,7 @@ var payloadDefinition = agentstructs.PayloadType{
 	AgentType:                              agentstructs.AgentTypeCommandAugment,
 	BuildParameters:                        []agentstructs.BuildParameter{},
 	BuildSteps:                             []agentstructs.BuildStep{},
-	OnContainerStartFunction: func(ctx context.Context, message sharedStructs.ContainerOnStartMessage) sharedStructs.ContainerOnStartMessageResponse {
+	OnContainerStartFunction: func(message sharedStructs.ContainerOnStartMessage) sharedStructs.ContainerOnStartMessageResponse {
 		response := sharedStructs.ContainerOnStartMessageResponse{}
 		collectionSources := getCollectionSources()
 		for _, source := range collectionSources {
@@ -319,7 +318,7 @@ var payloadDefinition = agentstructs.PayloadType{
 		}
 		return response
 	},
-	CheckIfCallbacksAliveFunction: func(ctx context.Context, message agentstructs.PTCheckIfCallbacksAliveMessage) agentstructs.PTCheckIfCallbacksAliveMessageResponse {
+	CheckIfCallbacksAliveFunction: func(message agentstructs.PTCheckIfCallbacksAliveMessage) agentstructs.PTCheckIfCallbacksAliveMessageResponse {
 		response := agentstructs.PTCheckIfCallbacksAliveMessageResponse{Success: true, Callbacks: make([]agentstructs.PTCallbacksToCheckResponse, 0)}
 		return response
 	},
@@ -343,7 +342,7 @@ func Initialize() {
 		}
 	}
 	// do this to pre-load the existing commands before we sync for the first time
-	payloadDefinition.OnContainerStartFunction(context.Background(), sharedStructs.ContainerOnStartMessage{})
+	payloadDefinition.OnContainerStartFunction(sharedStructs.ContainerOnStartMessage{})
 	agentstructs.AllPayloadData.Get(PayloadTypeName).AddPayloadDefinition(payloadDefinition)
 	agentstructs.AllPayloadData.Get(PayloadTypeName).AddIcon(filepath.Join(".", PayloadTypeName, "agentfunctions", PayloadTypeName+".svg"))
 	agentstructs.AllPayloadData.Get(PayloadTypeName).AddDarkModeIcon(filepath.Join(".", PayloadTypeName, "agentfunctions", PayloadTypeName+".svg"))

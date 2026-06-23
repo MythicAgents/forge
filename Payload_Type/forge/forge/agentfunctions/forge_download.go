@@ -3,7 +3,6 @@ package agentfunctions
 import (
 	"archive/tar"
 	"compress/gzip"
-	"context"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -133,10 +132,7 @@ func ExtractTarGz(gzipStream io.Reader, extractPath string) error {
 	}
 	return nil
 }
-func downloadAssemblyFile(ctx context.Context, commandSource collectionSourceCommandData, assemblyVersion string, collectionSourceData collectionSource, taskData *agentstructs.PTTaskMessageAllData) error {
-	if ctx == nil {
-		ctx = context.Background()
-	}
+func downloadAssemblyFile(commandSource collectionSourceCommandData, assemblyVersion string, collectionSourceData collectionSource, taskData *agentstructs.PTTaskMessageAllData) error {
 	url := fmt.Sprintf("%s/raw/refs/heads/master/NetFramework_%s/%s.exe",
 		commandSource.RepoURL, assemblyVersion, commandSource.Name)
 	if commandSource.CustomDownloadURL != "" {
@@ -159,7 +155,7 @@ func downloadAssemblyFile(ctx context.Context, commandSource collectionSourceCom
 			return errors.New("no remote url address specified for this command and file missing from disk")
 		}
 		if taskData != nil {
-			mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+			mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 				TaskID:   taskData.Task.ID,
 				Response: []byte(fmt.Sprintf("[*] Downloading %s - v%s...\n", commandSource.Name+".exe", assemblyVersion)),
 			})
@@ -178,7 +174,7 @@ func downloadAssemblyFile(ctx context.Context, commandSource collectionSourceCom
 		body, err := rateLimitLoopFetchURL(req)
 		if err != nil {
 			if taskData != nil {
-				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
 					Response: []byte(fmt.Sprintf("[!] Failed to download file %s - v%s\n", commandSource.Name+".exe", assemblyVersion)),
 				})
@@ -194,7 +190,7 @@ func downloadAssemblyFile(ctx context.Context, commandSource collectionSourceCom
 			return err
 		}
 		if taskData != nil {
-			mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+			mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 				TaskID:   taskData.Task.ID,
 				Response: []byte(fmt.Sprintf("[+] Finished Downloading %s - v%s\n", commandSource.Name+".exe", assemblyVersion)),
 			})
@@ -202,13 +198,13 @@ func downloadAssemblyFile(ctx context.Context, commandSource collectionSourceCom
 
 	} else {
 		if taskData != nil {
-			mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+			mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 				TaskID:   taskData.Task.ID,
 				Response: []byte(fmt.Sprintf("[*] Fetching %s - v%s from Mythic...\n", commandSource.Name+".exe", assemblyVersion)),
 			})
 		}
 
-		fileContentsResp, err := mythicrpc.SendMythicRPCFileGetContent(ctx, mythicrpc.MythicRPCFileGetContentMessage{
+		fileContentsResp, err := mythicrpc.SendMythicRPCFileGetContent(mythicrpc.MythicRPCFileGetContentMessage{
 			AgentFileID: commandSource.customAssemblyFileID,
 		})
 		if err != nil {
@@ -226,7 +222,7 @@ func downloadAssemblyFile(ctx context.Context, commandSource collectionSourceCom
 		}
 		downloadFile.Close()
 		if taskData != nil {
-			mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+			mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 				TaskID:   taskData.Task.ID,
 				Response: []byte(fmt.Sprintf("[*] Saved %s - v%s from Mythic to disk...\n", commandSource.Name+".exe", assemblyVersion)),
 			})
@@ -302,7 +298,7 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 				},
 			},
 		},
-		TaskFunctionCreateTasking: func(ctx context.Context, taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
+		TaskFunctionCreateTasking: func(taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
 			response := agentstructs.PTTaskCreateTaskingMessageResponse{
 				Success: true,
 				TaskID:  taskData.Task.ID,
@@ -375,11 +371,11 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 						if commandSources[i].CommandName == commandSource.CommandName {
 							foundCommand = true
 							updatedStatus := fmt.Sprintf("Downloading assembly...")
-							mythicrpc.SendMythicRPCTaskUpdate(ctx, mythicrpc.MythicRPCTaskUpdateMessage{
+							mythicrpc.SendMythicRPCTaskUpdate(mythicrpc.MythicRPCTaskUpdateMessage{
 								TaskID:       taskData.Task.ID,
 								UpdateStatus: &updatedStatus,
 							})
-							err = downloadAssemblyFile(ctx, commandSources[i], assemblyVersion, collectionSourceData, taskData)
+							err = downloadAssemblyFile(commandSources[i], assemblyVersion, collectionSourceData, taskData)
 							if err != nil {
 								response.Success = false
 								response.Error = err.Error()
@@ -398,7 +394,7 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 					return response
 				}
 			}
-			fileSearch, err := mythicrpc.SendMythicRPCFileSearch(ctx, mythicrpc.MythicRPCFileSearchMessage{
+			fileSearch, err := mythicrpc.SendMythicRPCFileSearch(mythicrpc.MythicRPCFileSearchMessage{
 				TaskID:     taskData.Task.ID,
 				Filename:   fmt.Sprintf("%s.exe", commandSource.Name),
 				MaxResults: 1,
@@ -416,11 +412,11 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 			}
 			if len(fileSearch.Files) == 0 {
 				// we need to register it first
-				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
 					Response: []byte(fmt.Sprintf("[*] Registering %s.exe with Mythic...\n", commandSource.Name)),
 				})
-				uploadResponse, err := mythicrpc.SendMythicRPCFileCreate(ctx, mythicrpc.MythicRPCFileCreateMessage{
+				uploadResponse, err := mythicrpc.SendMythicRPCFileCreate(mythicrpc.MythicRPCFileCreateMessage{
 					TaskID:       taskData.Task.ID,
 					Filename:     fmt.Sprintf("%s.exe", commandSource.Name),
 					Comment:      fmt.Sprintf("Community Collection's %s.exe version %s", commandSource.Name, assemblyVersion),
@@ -472,12 +468,12 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 						DefaultValue:  arguments,
 					})
 
-					mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+					mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 						TaskID:   taskData.Task.ID,
 						Response: []byte(fmt.Sprintf("[*] Passing execution to %s's \"%s\" command for further processing...\n", agent.Agent, commandName)),
 					})
 					updatedStatus := fmt.Sprintf("%s preparing task...", agent.Agent)
-					mythicrpc.SendMythicRPCTaskUpdate(ctx, mythicrpc.MythicRPCTaskUpdateMessage{
+					mythicrpc.SendMythicRPCTaskUpdate(mythicrpc.MythicRPCTaskUpdateMessage{
 						TaskID:       taskData.Task.ID,
 						UpdateStatus: &updatedStatus,
 					})
@@ -489,10 +485,10 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 			response.Error += fmt.Sprintf("\nModify the %s file to add support for this callback's payload type.", PayloadTypeSupportFilename)
 			return response
 		},
-		TaskFunctionParseArgDictionary: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
+		TaskFunctionParseArgDictionary: func(args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
 			return args.LoadArgsFromDictionary(input)
 		},
-		TaskFunctionParseArgString: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input string) error {
+		TaskFunctionParseArgString: func(args *agentstructs.PTTaskMessageArgsData, input string) error {
 			if len(input) > 0 {
 				return args.LoadArgsFromJSONString(input)
 			}
@@ -535,12 +531,9 @@ func createAssemblyCommand(commandSource collectionSourceCommandData, collection
 	}
 	return newCommand
 }
-func deleteOlderVersions(ctx context.Context, filename string, taskID int, dontDeleteAgentFileID string) {
-	if ctx == nil {
-		ctx = context.Background()
-	}
+func deleteOlderVersions(filename string, taskID int, dontDeleteAgentFileID string) {
 	logging.LogInfo("deleting older versions of files", "filename", filename)
-	oldFilesSearch, err := mythicrpc.SendMythicRPCFileSearch(ctx, mythicrpc.MythicRPCFileSearchMessage{
+	oldFilesSearch, err := mythicrpc.SendMythicRPCFileSearch(mythicrpc.MythicRPCFileSearchMessage{
 		TaskID:   taskID,
 		Filename: filename,
 	})
@@ -549,7 +542,7 @@ func deleteOlderVersions(ctx context.Context, filename string, taskID int, dontD
 	} else {
 		for _, oldFile := range oldFilesSearch.Files {
 			if oldFile.AgentFileID != dontDeleteAgentFileID {
-				_, err = mythicrpc.SendMythicRPCFileUpdate(ctx, mythicrpc.MythicRPCFileUpdateMessage{
+				_, err = mythicrpc.SendMythicRPCFileUpdate(mythicrpc.MythicRPCFileUpdateMessage{
 					AgentFileID: oldFile.AgentFileID,
 					Delete:      true,
 				})
@@ -560,10 +553,7 @@ func deleteOlderVersions(ctx context.Context, filename string, taskID int, dontD
 		}
 	}
 }
-func downloadBofFile(ctx context.Context, commandSource collectionSourceCommandData, collectionSourceData collectionSource, taskData *agentstructs.PTTaskMessageAllData) error {
-	if ctx == nil {
-		ctx = context.Background()
-	}
+func downloadBofFile(commandSource collectionSourceCommandData, collectionSourceData collectionSource, taskData *agentstructs.PTTaskMessageAllData) error {
 	if len(commandSource.customBofFileIDs) > 0 {
 		logging.LogInfo("have custom bof ids, checking locally")
 		extractPath := filepath.Join(".", PayloadTypeName, "collections", collectionSourceData.Name, commandSource.CommandName) + string(os.PathSeparator)
@@ -572,7 +562,7 @@ func downloadBofFile(ctx context.Context, commandSource collectionSourceCommandD
 			return err
 		}
 		for _, bofFile := range commandSource.customBofFileIDs {
-			searchResp, err := mythicrpc.SendMythicRPCFileSearch(ctx, mythicrpc.MythicRPCFileSearchMessage{
+			searchResp, err := mythicrpc.SendMythicRPCFileSearch(mythicrpc.MythicRPCFileSearchMessage{
 				TaskID:      taskData.Task.ID,
 				AgentFileID: bofFile,
 			})
@@ -583,7 +573,7 @@ func downloadBofFile(ctx context.Context, commandSource collectionSourceCommandD
 			if !searchResp.Success {
 				return errors.New(searchResp.Error)
 			}
-			contentResp, err := mythicrpc.SendMythicRPCFileGetContent(ctx, mythicrpc.MythicRPCFileGetContentMessage{
+			contentResp, err := mythicrpc.SendMythicRPCFileGetContent(mythicrpc.MythicRPCFileGetContentMessage{
 				AgentFileID: bofFile,
 			})
 			if err != nil {
@@ -599,9 +589,9 @@ func downloadBofFile(ctx context.Context, commandSource collectionSourceCommandD
 				logging.LogError(err, "failed to write file to disk")
 				return err
 			}
-			deleteOlderVersions(ctx, searchResp.Files[0].Filename, taskData.Task.ID, bofFile)
+			deleteOlderVersions(searchResp.Files[0].Filename, taskData.Task.ID, bofFile)
 		}
-		contentResp, err := mythicrpc.SendMythicRPCFileGetContent(ctx, mythicrpc.MythicRPCFileGetContentMessage{
+		contentResp, err := mythicrpc.SendMythicRPCFileGetContent(mythicrpc.MythicRPCFileGetContentMessage{
 			AgentFileID: commandSource.customBofExtensionFileID,
 		})
 		if err != nil {
@@ -636,7 +626,7 @@ func downloadBofFile(ctx context.Context, commandSource collectionSourceCommandD
 	}
 	defer downloadFile.Close()
 	if taskData != nil {
-		mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+		mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 			TaskID:   taskData.Task.ID,
 			Response: []byte(fmt.Sprintf("[*] Downloading %s...\n", commandSource.Name+".tar.gz")),
 		})
@@ -719,7 +709,7 @@ func downloadBofFile(ctx context.Context, commandSource collectionSourceCommandD
 		return err
 	}
 	if taskData != nil {
-		mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+		mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 			TaskID:   taskData.Task.ID,
 			Response: []byte(fmt.Sprintf("[+] Finished Downloading %s\n", commandSource.Name+".tar.gz")),
 		})
@@ -949,7 +939,7 @@ func buildBofCommand(commandSource collectionSourceCommandData, collectionSource
 			CommandIsSuggested: true,
 		},
 		CommandParameters: newCommandParameters,
-		TaskFunctionCreateTasking: func(ctx context.Context, taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
+		TaskFunctionCreateTasking: func(taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
 			response := agentstructs.PTTaskCreateTaskingMessageResponse{
 				Success: true,
 				TaskID:  taskData.Task.ID,
@@ -969,7 +959,7 @@ func buildBofCommand(commandSource collectionSourceCommandData, collectionSource
 						response.Error = err.Error()
 						return response
 					}
-					fileSearchResp, err := mythicrpc.SendMythicRPCFileGetContent(ctx, mythicrpc.MythicRPCFileGetContentMessage{
+					fileSearchResp, err := mythicrpc.SendMythicRPCFileGetContent(mythicrpc.MythicRPCFileGetContentMessage{
 						AgentFileID: fileId,
 					})
 					if err != nil {
@@ -1084,7 +1074,7 @@ func buildBofCommand(commandSource collectionSourceCommandData, collectionSource
 						if commandSources[i].CommandName == commandSource.CommandName {
 							foundCommand = true
 							logging.LogInfo("found command to download", "command", commandSource.CommandName)
-							err = downloadBofFile(ctx, commandSources[i], collectionSourceData, taskData)
+							err = downloadBofFile(commandSources[i], collectionSourceData, taskData)
 							if err != nil {
 								response.Success = false
 								response.Error = err.Error()
@@ -1103,7 +1093,7 @@ func buildBofCommand(commandSource collectionSourceCommandData, collectionSource
 					return response
 				}
 			}
-			fileSearch, err := mythicrpc.SendMythicRPCFileSearch(ctx, mythicrpc.MythicRPCFileSearchMessage{
+			fileSearch, err := mythicrpc.SendMythicRPCFileSearch(mythicrpc.MythicRPCFileSearchMessage{
 				TaskID:     taskData.Task.ID,
 				Filename:   targetFilename,
 				MaxResults: 1,
@@ -1121,11 +1111,11 @@ func buildBofCommand(commandSource collectionSourceCommandData, collectionSource
 			}
 			if len(fileSearch.Files) == 0 {
 				// we need to register it first
-				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+				mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
 					Response: []byte(fmt.Sprintf("[*] Registering %s with Mythic...\n", targetFilename)),
 				})
-				uploadResponse, err := mythicrpc.SendMythicRPCFileCreate(ctx, mythicrpc.MythicRPCFileCreateMessage{
+				uploadResponse, err := mythicrpc.SendMythicRPCFileCreate(mythicrpc.MythicRPCFileCreateMessage{
 					TaskID:       taskData.Task.ID,
 					Filename:     targetFilename,
 					Comment:      fmt.Sprintf("Community Collection's %s version %s", bofCommandExtension.CommandName, targetFilename),
@@ -1186,12 +1176,12 @@ func buildBofCommand(commandSource collectionSourceCommandData, collectionSource
 					newStdout := fmt.Sprintf("%s final args:\nFile: %s\nTyped Args: %v\nEntrypoint: %s\n",
 						commandName, binaryFileID, typedArgs, bofCommandExtension.Entrypoint)
 					response.Stdout = &newStdout
-					mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+					mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 						TaskID:   taskData.Task.ID,
 						Response: []byte(fmt.Sprintf("[*] Passing execution to %s's \"%s\" command for further processing...\n", agent.Agent, commandName)),
 					})
 					updatedStatus := fmt.Sprintf("%s preparing task...", agent.Agent)
-					mythicrpc.SendMythicRPCTaskUpdate(ctx, mythicrpc.MythicRPCTaskUpdateMessage{
+					mythicrpc.SendMythicRPCTaskUpdate(mythicrpc.MythicRPCTaskUpdateMessage{
 						TaskID:       taskData.Task.ID,
 						UpdateStatus: &updatedStatus,
 					})
@@ -1203,10 +1193,10 @@ func buildBofCommand(commandSource collectionSourceCommandData, collectionSource
 			response.Error += fmt.Sprintf("\nModify the %s file to add support for this callback's payload type.", PayloadTypeSupportFilename)
 			return response
 		},
-		TaskFunctionParseArgDictionary: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
+		TaskFunctionParseArgDictionary: func(args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
 			return args.LoadArgsFromDictionary(input)
 		},
-		TaskFunctionParseArgString: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input string) error {
+		TaskFunctionParseArgString: func(args *agentstructs.PTTaskMessageArgsData, input string) error {
 			if len(input) > 0 {
 				return args.LoadArgsFromJSONString(input)
 			}
@@ -1306,7 +1296,7 @@ func init() {
 				ParameterType:    agentstructs.COMMAND_PARAMETER_TYPE_CHOOSE_ONE_CUSTOM,
 				Description:      "Choose which collection to query",
 				ModalDisplayName: "Collection Name to Query",
-				DynamicQueryFunction: func(ctx context.Context, message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
+				DynamicQueryFunction: func(message agentstructs.PTRPCDynamicQueryFunctionMessage) []string {
 					return getCollectionSourceNameOptions(message)
 				},
 				ParameterGroupInformation: []agentstructs.ParameterGroupInfo{
@@ -1328,7 +1318,7 @@ func init() {
 				},
 			},
 		},
-		TaskFunctionCreateTasking: func(ctx context.Context, taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
+		TaskFunctionCreateTasking: func(taskData *agentstructs.PTTaskMessageAllData) agentstructs.PTTaskCreateTaskingMessageResponse {
 			response := agentstructs.PTTaskCreateTaskingMessageResponse{
 				Success: true,
 				TaskID:  taskData.Task.ID,
@@ -1377,7 +1367,7 @@ func init() {
 					switch collectionSourceData.Type {
 					case "assembly":
 						if commandSource.CustomDownloadURL != "" {
-							err = downloadAssemblyFile(ctx, commandSource, commandSource.CustomVersion, collectionSourceData, taskData)
+							err = downloadAssemblyFile(commandSource, commandSource.CustomVersion, collectionSourceData, taskData)
 							if err != nil {
 								response.Success = false
 								response.Error = err.Error()
@@ -1386,7 +1376,7 @@ func init() {
 						} else {
 							atLeastOneSuccess := false
 							for _, assemblyVersion := range assemblyVersions {
-								err = downloadAssemblyFile(ctx, commandSource, assemblyVersion, collectionSourceData, taskData)
+								err = downloadAssemblyFile(commandSource, assemblyVersion, collectionSourceData, taskData)
 								if err == nil {
 									atLeastOneSuccess = true
 								}
@@ -1397,21 +1387,21 @@ func init() {
 								return response
 							}
 						}
-						mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+						mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 							TaskID:   taskData.Task.ID,
 							Response: []byte(fmt.Sprintf("Registering new command %s%s\n", AssemblyPrefix, commandSource.CommandName)),
 						})
 						newCommand := createAssemblyCommand(commandSource, collectionSourceData, true)
 						addOrReplaceForgeCommand(newCommand)
 					case "bof":
-						err = downloadBofFile(ctx, commandSource, collectionSourceData, taskData)
+						err = downloadBofFile(commandSource, collectionSourceData, taskData)
 						if err != nil {
 							response.Success = false
 							response.Error = err.Error()
 							return response
 						}
 						prefixedCommandNames := strings.Join(getBofCommandNamesForSource(commandSource, collectionSourceData), ", ")
-						mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+						mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 							TaskID:   taskData.Task.ID,
 							Response: []byte(fmt.Sprintf("Registering new command(s) %s\n", prefixedCommandNames)),
 						})
@@ -1427,7 +1417,7 @@ func init() {
 
 					rabbitmq.SyncPayloadData(&payloadDefinition.Name, false)
 					response.Success = true
-					mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+					mythicrpc.SendMythicRPCResponseCreate(mythicrpc.MythicRPCResponseCreateMessage{
 						TaskID:   taskData.Task.ID,
 						Response: []byte(fmt.Sprintf("Command Registered for use!\n")),
 					})
@@ -1438,10 +1428,10 @@ func init() {
 			response.Error = "Failed to find that command in " + collectionSourceData.SourceFilename
 			return response
 		},
-		TaskFunctionParseArgDictionary: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
+		TaskFunctionParseArgDictionary: func(args *agentstructs.PTTaskMessageArgsData, input map[string]interface{}) error {
 			return args.LoadArgsFromDictionary(input)
 		},
-		TaskFunctionParseArgString: func(ctx context.Context, args *agentstructs.PTTaskMessageArgsData, input string) error {
+		TaskFunctionParseArgString: func(args *agentstructs.PTTaskMessageArgsData, input string) error {
 			if len(input) > 0 {
 				return args.LoadArgsFromJSONString(input)
 			}
