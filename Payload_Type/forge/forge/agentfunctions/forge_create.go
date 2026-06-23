@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	agentstructs "github.com/MythicMeta/MythicContainer/agent_structs"
 	"github.com/MythicMeta/MythicContainer/logging"
@@ -207,7 +208,12 @@ func init() {
 					response.Error = contentResp.Error
 					return response
 				}
-				commandName = bofCommandExtension.CommandName
+				commandName = getBofCommandSourceName(bofCommandExtension)
+				if commandName == "" {
+					response.Success = false
+					response.Error = "extension.json must define command_name, package_name, or exactly one bundled command with command_name"
+					return response
+				}
 			}
 			collection, err := taskData.Args.GetStringArg("collectionName")
 			if err != nil {
@@ -311,7 +317,7 @@ func init() {
 					Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
 				})
 				newCommand := createAssemblyCommand(newCommandSource, collectionSourceData, true)
-				agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
+				addOrReplaceForgeCommand(newCommand)
 			} else {
 				commandFileIDs, err := taskData.Args.GetArrayArg("commandFilesBof")
 				if err != nil {
@@ -337,10 +343,9 @@ func init() {
 					response.Success = false
 					return response
 				}
-				prefixedCommandName = fmt.Sprintf("%s%s", BofPrefix, commandName)
 				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
 					TaskID:   taskData.Task.ID,
-					Response: []byte(fmt.Sprintf("Registering new command %s\n", prefixedCommandName)),
+					Response: []byte("Registering new BOF command(s)\n"),
 				})
 				newCommandSource.customBofExtensionFileID = extensionFileID
 				newCommandSource.customBofFileIDs = commandFileIDs
@@ -351,6 +356,11 @@ func init() {
 					response.Error = err.Error()
 					return response
 				}
+				prefixedCommandNames := strings.Join(getBofCommandNamesForSource(newCommandSource, collectionSourceData), ", ")
+				mythicrpc.SendMythicRPCResponseCreate(ctx, mythicrpc.MythicRPCResponseCreateMessage{
+					TaskID:   taskData.Task.ID,
+					Response: []byte(fmt.Sprintf("Registering new command(s) %s\n", prefixedCommandNames)),
+				})
 				err = createBofCommand(newCommandSource, collectionSourceData, true)
 				if err != nil {
 					response.Success = false

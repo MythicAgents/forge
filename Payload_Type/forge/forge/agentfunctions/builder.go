@@ -171,6 +171,17 @@ func getOrCreateFile(filename string) ([]byte, error) {
 	return commandsFileBytes, nil
 }
 
+func addOrReplaceForgeCommand(cmd agentstructs.Command) {
+	payloadData := agentstructs.AllPayloadData.Get(PayloadTypeName)
+	for _, existingCommand := range payloadData.GetCommands() {
+		if existingCommand.Name == cmd.Name {
+			payloadData.RemoveCommand(agentstructs.Command{Name: cmd.Name})
+			break
+		}
+	}
+	payloadData.AddCommand(cmd)
+}
+
 type collectionSourceCommandData struct {
 	Name                     string `json:"name"`
 	CommandName              string `json:"command_name"`
@@ -262,7 +273,7 @@ var payloadDefinition = agentstructs.PayloadType{
 					for _, sourceCommand := range sourceCommands {
 						if registeredCommand.CollectionCommandName == sourceCommand.Name {
 							newCommand := createAssemblyCommand(sourceCommand, source, false)
-							agentstructs.AllPayloadData.Get(PayloadTypeName).AddCommand(newCommand)
+							addOrReplaceForgeCommand(newCommand)
 						}
 					}
 				}
@@ -287,9 +298,14 @@ var payloadDefinition = agentstructs.PayloadType{
 					response.EventLogErrorMessage = "failed to parse bof commands into struct"
 					return response
 				}
+				loadedSources := make(map[string]bool)
 				for _, registeredCommand := range registeredCommands {
 					for _, sourceCommand := range sourceCommands {
 						if registeredCommand.CollectionCommandName == sourceCommand.Name {
+							if loadedSources[sourceCommand.Name] {
+								continue
+							}
+							loadedSources[sourceCommand.Name] = true
 							err = createBofCommand(sourceCommand, source, false)
 							if err != nil {
 								logging.LogError(err, "failed to create bof command")
