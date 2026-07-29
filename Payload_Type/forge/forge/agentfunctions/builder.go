@@ -223,20 +223,19 @@ type assemblyCommand struct {
 }
 
 var payloadDefinition = agentstructs.PayloadType{
-	Name:                                   PayloadTypeName,
-	FileExtension:                          "bin",
-	Author:                                 "@its_a_feature_",
-	SupportedOS:                            []string{agentstructs.SUPPORTED_OS_WINDOWS},
-	Wrapper:                                false,
-	CanBeWrappedByTheFollowingPayloadTypes: []string{},
-	SupportsDynamicLoading:                 true,
-	Description:                            fmt.Sprintf("A collection of bofs/assemblies and their associated commands to be shared across agents.\nNeeds Mythic 3.3.0+"),
-	SupportedC2Profiles:                    []string{},
-	MythicEncryptsData:                     true,
-	SemVer:                                 version,
-	AgentType:                              agentstructs.AgentTypeCommandAugment,
-	BuildParameters:                        []agentstructs.BuildParameter{},
-	BuildSteps:                             []agentstructs.BuildStep{},
+	Name:                   PayloadTypeName,
+	FileExtension:          "bin",
+	Author:                 "@its_a_feature_",
+	SupportedOS:            []string{agentstructs.SUPPORTED_OS_WINDOWS},
+	Wrapper:                false,
+	SupportsDynamicLoading: true,
+	Description:            fmt.Sprintf("A collection of bofs/assemblies and their associated commands to be shared across agents.\nNeeds Mythic 3.3.0+"),
+	SupportedC2Profiles:    []string{},
+	MythicEncryptsData:     true,
+	SemVer:                 version,
+	AgentType:              agentstructs.AgentTypeCommandAugment,
+	BuildParameters:        []agentstructs.BuildParameter{},
+	BuildSteps:             []agentstructs.BuildStep{},
 	OnContainerStartFunction: func(ctx context.Context, message sharedStructs.ContainerOnStartMessage) sharedStructs.ContainerOnStartMessageResponse {
 		response := sharedStructs.ContainerOnStartMessageResponse{}
 		collectionSources := getCollectionSources()
