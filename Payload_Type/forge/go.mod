@@ -4,7 +4,7 @@ go 1.25.1
 
 //replace github.com/MythicMeta/MythicContainer => ../../../../MythicMeta/MythicContainer
 
-require github.com/MythicMeta/MythicContainer v1.7.0-rc2
+require github.com/MythicMeta/MythicContainer v1.7.0-rc4
 
 require (
 	github.com/fsnotify/fsnotify v1.10.1 // indirect
@@ -26,8 +26,8 @@ require (
 	golang.org/x/net v0.57.0 // indirect
 	golang.org/x/sys v0.47.0 // indirect
 	golang.org/x/text v0.40.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260727163830-6c54dddc4772 // indirect
-	google.golang.org/grpc v1.82.1 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260729162451-8efbd57d26e0 // indirect
+	google.golang.org/grpc v1.83.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 )
