@@ -1,0 +1,71 @@
+{
+  "command_name": "nbtscan",
+  "help": "NetBIOS name scanner",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "nbtscan.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "nbtscan.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "IP address/range/CIDR",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "verbose",
+      "desc": "Verbose (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "quiet",
+      "desc": "Quiet (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "etc_hosts",
+      "desc": "etc_hosts (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "lmhosts",
+      "desc": "lmhosts (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "separator",
+      "desc": "Separator",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "timeout",
+      "desc": "Timeout ms",
+      "type": "i",
+      "optional": true,
+      "default": 1000
+    }
+  ]
+}

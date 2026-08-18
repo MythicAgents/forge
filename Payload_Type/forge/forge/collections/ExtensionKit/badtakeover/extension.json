@@ -1,0 +1,48 @@
+{
+  "command_name": "badtakeover",
+  "help": "Account takeover via BadSuccessor technique",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "badtakeover.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "ou",
+      "desc": "Target OU",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "account",
+      "desc": "New dMSA name",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "sid",
+      "desc": "Current context SID",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "dn",
+      "desc": "Target user DN",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "domain",
+      "desc": "Current domain",
+      "type": "z",
+      "optional": false
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "command_name": "cacls",
+  "help": "List user permissions for file/directory",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "cacls.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "cacls.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "path",
+      "desc": "File or directory path",
+      "type": "Z",
+      "optional": false
+    }
+  ]
+}

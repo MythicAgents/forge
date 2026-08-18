@@ -1,0 +1,66 @@
+{
+  "command_name": "mssql_adsi",
+  "help": "Obtain ADSI creds from ADSI linked server",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "adsi.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "port",
+      "desc": "port",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "database",
+      "desc": "database",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "linkedserver",
+      "desc": "linkedserver",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "impersonate",
+      "desc": "impersonate",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "user",
+      "desc": "user",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "password",
+      "desc": "password",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "server",
+      "desc": "server",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "adsiserver",
+      "desc": "adsiserver",
+      "type": "z",
+      "optional": false
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "command_name": "ek-scshell",
+  "help": "Spawn session on remote target via SCShell (fileless)",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "scshell.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "scshell.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "Remote target",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "svc_name",
+      "desc": "Service name",
+      "type": "z",
+      "optional": true,
+      "default": "defragsvc"
+    },
+    {
+      "name": "remote_unc_path",
+      "desc": "Remote UNC path",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "binary",
+      "desc": "Binary file",
+      "type": "b",
+      "optional": false
+    }
+  ]
+}

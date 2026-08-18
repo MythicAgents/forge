@@ -1,0 +1,54 @@
+{
+  "command_name": "ldap_add-asreproastable",
+  "help": "Make a user AS-REP roastable (set DONT_REQ_PREAUTH)",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "add-uac.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "target",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "ou_path",
+      "desc": "ou_path",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "dc_fqdn",
+      "desc": "dc_fqdn",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg4",
+      "desc": "Parameter 4",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg5",
+      "desc": "Parameter 5",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg6",
+      "desc": "Parameter 6",
+      "type": "i",
+      "optional": true
+    }
+  ]
+}

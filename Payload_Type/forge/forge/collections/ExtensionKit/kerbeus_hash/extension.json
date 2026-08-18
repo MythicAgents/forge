@@ -1,0 +1,24 @@
+{
+  "command_name": "kerbeus_hash",
+  "help": "Calculate rc4_hmac, aes128_cts_hmac_sha1, aes256_cts_hmac_sha1 hashes",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "hash.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "params",
+      "desc": "params",
+      "type": "z",
+      "optional": false
+    }
+  ]
+}

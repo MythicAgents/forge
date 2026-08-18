@@ -1,0 +1,30 @@
+{
+  "command_name": "inject-32to64",
+  "help": "Inject x64 shellcode from WOW64 into native 64-bit process",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "inject_32to64.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "pid",
+      "desc": "Target process ID",
+      "type": "i",
+      "optional": false
+    },
+    {
+      "name": "shellcode",
+      "desc": "Shellcode file",
+      "type": "b",
+      "optional": false
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "command_name": "runas-user",
+  "help": "Run command as another user using explicit credentials",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "runas.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "runas.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "username",
+      "desc": "Username",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "password",
+      "desc": "Password",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "domain",
+      "desc": "Domain",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "command",
+      "desc": "Command line",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "logon_type",
+      "desc": "Logon type",
+      "type": "i",
+      "optional": true,
+      "default": 2
+    },
+    {
+      "name": "timeout",
+      "desc": "Timeout ms",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "no_output",
+      "desc": "No output (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 1
+    },
+    {
+      "name": "bypass_uac",
+      "desc": "Bypass UAC",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    }
+  ]
+}

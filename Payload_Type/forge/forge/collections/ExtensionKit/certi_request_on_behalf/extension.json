@@ -1,0 +1,60 @@
+{
+  "command_name": "certi_request_on_behalf",
+  "help": "Request certificate on behalf of another user (ESC3)",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "certi_req_onbehalf.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "ca",
+      "desc": "ca",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "template",
+      "desc": "template",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "target",
+      "desc": "target",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "ea-pfx",
+      "desc": "ea-pfx",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "ea_password",
+      "desc": "ea_password",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "pfx_password",
+      "desc": "pfx_password",
+      "type": "b",
+      "optional": true
+    },
+    {
+      "name": "arg7",
+      "desc": "Parameter 7",
+      "type": "s",
+      "optional": true
+    }
+  ]
+}

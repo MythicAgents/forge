@@ -1,0 +1,52 @@
+{
+  "command_name": "taskhound",
+  "help": "Collect scheduled tasks from remote systems",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "taskhound.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "Remote system IP/hostname",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "username",
+      "desc": "Username",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "password",
+      "desc": "Password",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "save_directory",
+      "desc": "Save directory",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "flags",
+      "desc": "Flags",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    }
+  ]
+}

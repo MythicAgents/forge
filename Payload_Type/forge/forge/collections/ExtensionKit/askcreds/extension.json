@@ -1,0 +1,39 @@
+{
+  "command_name": "askcreds",
+  "help": "Prompt for credentials via Windows UI",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "askcreds.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "prompt",
+      "desc": "Dialog title",
+      "type": "Z",
+      "optional": true,
+      "default": "Restore Network Connection"
+    },
+    {
+      "name": "note",
+      "desc": "Dialog note",
+      "type": "Z",
+      "optional": true,
+      "default": "Please verify credentials"
+    },
+    {
+      "name": "wait_time",
+      "desc": "Wait time (s)",
+      "type": "i",
+      "optional": true,
+      "default": 30
+    }
+  ]
+}

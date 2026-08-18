@@ -1,0 +1,48 @@
+{
+  "command_name": "certi_auth",
+  "help": "Authenticate with certificate (PKINIT + UnPAC-the-hash)",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "certi_auth.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "cert",
+      "desc": "cert",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "pfx",
+      "desc": "pfx",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "password",
+      "desc": "password",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "dc",
+      "desc": "dc",
+      "type": "b",
+      "optional": true
+    },
+    {
+      "name": "arg5",
+      "desc": "Parameter 5",
+      "type": "s",
+      "optional": true
+    }
+  ]
+}

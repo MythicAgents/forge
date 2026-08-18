@@ -1,0 +1,43 @@
+{
+  "command_name": "smartscan",
+  "help": "Smart port scan",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "smartscan.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "smartscan.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "IP address, range, or CIDR",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "scan_level",
+      "desc": "Scan level: 1=fast, 2=standard, 3=full, 0=custom",
+      "type": "i",
+      "optional": true,
+      "default": 2
+    },
+    {
+      "name": "custom_ports",
+      "desc": "Custom ports",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    }
+  ]
+}

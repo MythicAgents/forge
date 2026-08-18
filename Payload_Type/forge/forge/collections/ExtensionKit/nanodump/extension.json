@@ -1,0 +1,156 @@
+{
+  "command_name": "nanodump",
+  "help": "Use syscalls to dump LSASS",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "nanodump.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "nanodump.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "dump_path",
+      "desc": "Dump path",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "write_file",
+      "desc": "Write to file",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "use_valid_sig",
+      "desc": "Valid signature",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "fork",
+      "desc": "Fork process",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "snapshot",
+      "desc": "Snapshot process",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "dup",
+      "desc": "Duplicate handle",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "elevate_handle",
+      "desc": "Elevate handle",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "duplicate_elevate",
+      "desc": "Duplicate elevate",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "use_seclogon_leak_local",
+      "desc": "Seclogon leak local",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "use_seclogon_leak_remote",
+      "desc": "Seclogon leak remote",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "seclogon_leak_remote_binary",
+      "desc": "Remote binary path",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "use_seclogon_duplicate",
+      "desc": "Seclogon duplicate",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "spoof_callstack",
+      "desc": "Spoof callstack",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "use_silent_process_exit",
+      "desc": "Silent process exit",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "silent_process_exit",
+      "desc": "Silent exit folder",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "use_lsass_shtinkering",
+      "desc": "LSASS Shtinkering",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "get_pid",
+      "desc": "Get PID only",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "pid",
+      "desc": "Target LSASS PID",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "chunk_size",
+      "desc": "Chunk size bytes",
+      "type": "i",
+      "optional": true,
+      "default": 921600
+    }
+  ]
+}

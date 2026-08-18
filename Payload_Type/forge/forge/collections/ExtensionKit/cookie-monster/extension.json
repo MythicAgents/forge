@@ -1,0 +1,79 @@
+{
+  "command_name": "cookie-monster",
+  "help": "Locate and copy cookie files for Edge/Chrome/Firefox",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "cookie-monster-bof.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "cookie-monster-bof.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "browser",
+      "desc": "Browser name",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "profile",
+      "desc": "Profile path",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "browser_pid",
+      "desc": "Browser PID",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "dump_cookie",
+      "desc": "Dump cookie (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "dump_password",
+      "desc": "Dump password (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "dump_key",
+      "desc": "Dump key (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "cookie_pid",
+      "desc": "Cookie PID",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "password_pid",
+      "desc": "Password PID",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    }
+  ]
+}

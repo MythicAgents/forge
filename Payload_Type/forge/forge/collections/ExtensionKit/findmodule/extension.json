@@ -1,0 +1,24 @@
+{
+  "command_name": "findmodule",
+  "help": "Identify processes which have a certain module loaded",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "findmodule.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "module",
+      "desc": "Module name",
+      "type": "Z",
+      "optional": false
+    }
+  ]
+}

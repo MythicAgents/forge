@@ -1,0 +1,46 @@
+{
+  "command_name": "readlaps",
+  "help": "Read LAPS password for a computer",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "readlaps.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "dc",
+      "desc": "Target DC",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "dn",
+      "desc": "Root DN",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "searchFilter",
+      "desc": "LDAP search filter",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "reportTarget",
+      "desc": "Target computer name",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    }
+  ]
+}

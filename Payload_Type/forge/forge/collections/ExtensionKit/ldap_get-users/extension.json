@@ -1,0 +1,42 @@
+{
+  "command_name": "ldap_get-users",
+  "help": "List all users in the domain",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "get-users.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "ou_path",
+      "desc": "ou_path",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "dc_fqdn",
+      "desc": "dc_fqdn",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "attributes",
+      "desc": "attributes",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "arg4",
+      "desc": "Parameter 4",
+      "type": "z",
+      "optional": true
+    }
+  ]
+}

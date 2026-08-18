@@ -1,0 +1,22 @@
+{
+  "command_name": "uacstatus",
+  "help": "Check UAC status, integrity level, and local admin group",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "uacstatus.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "uacstatus.x86.o"
+    }
+  ],
+  "arguments": []
+}

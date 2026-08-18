@@ -1,0 +1,37 @@
+{
+  "command_name": "screenshot_bof",
+  "help": "Inline memory-based screenshot",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "Screenshot.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "Screenshot.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "note",
+      "desc": "Caption",
+      "type": "z",
+      "optional": true,
+      "default": "ScreenshotBOF"
+    },
+    {
+      "name": "pid",
+      "desc": "Window PID (0=full screen)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "command_name": "certi_request",
+  "help": "Request an enrollment certificate",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "certi_req.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "CA",
+      "desc": "CA",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "template",
+      "desc": "template",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "subject",
+      "desc": "subject",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "altname",
+      "desc": "altname",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "alturl",
+      "desc": "alturl",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "password",
+      "desc": "password",
+      "type": "Z",
+      "optional": true
+    },
+    {
+      "name": "arg7",
+      "desc": "Parameter 7",
+      "type": "s",
+      "optional": true
+    },
+    {
+      "name": "arg8",
+      "desc": "Parameter 8",
+      "type": "s",
+      "optional": true
+    },
+    {
+      "name": "arg9",
+      "desc": "Parameter 9",
+      "type": "s",
+      "optional": true
+    },
+    {
+      "name": "arg10",
+      "desc": "Parameter 10",
+      "type": "s",
+      "optional": true
+    },
+    {
+      "name": "arg11",
+      "desc": "Parameter 11",
+      "type": "s",
+      "optional": true
+    }
+  ]
+}

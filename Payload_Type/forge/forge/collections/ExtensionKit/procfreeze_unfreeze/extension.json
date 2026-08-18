@@ -1,0 +1,32 @@
+{
+  "command_name": "procfreeze_unfreeze",
+  "help": "Unfreeze a previously frozen process",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "procfreeze.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "action",
+      "desc": "Action (2=unfreeze)",
+      "type": "i",
+      "optional": true,
+      "default": 2
+    },
+    {
+      "name": "pid",
+      "desc": "Unused",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "command_name": "relay_http",
+  "help": "Inform on HTTP(S) service binding enforcement and HTTPS channel binding enforcement",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "http.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "url",
+      "desc": "url",
+      "type": "Z",
+      "optional": false
+    }
+  ]
+}
