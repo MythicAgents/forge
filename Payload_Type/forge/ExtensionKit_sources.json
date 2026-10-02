@@ -1,0 +1,1234 @@
+[
+	{
+		"name": "arp",
+		"command_name": "arp",
+		"description": "List ARP table",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "cacls",
+		"command_name": "cacls",
+		"description": "List user permissions for file/directory",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-dir",
+		"command_name": "ek-dir",
+		"description": "Lists files in directory (wildcards, recursive)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-env",
+		"command_name": "ek-env",
+		"description": "List process environment variables",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-ipconfig",
+		"command_name": "ek-ipconfig",
+		"description": "List IPv4 address, hostname, and DNS server",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "listdns",
+		"command_name": "listdns",
+		"description": "List DNS cache entries",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-netstat",
+		"command_name": "ek-netstat",
+		"description": "Display network connections",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-nslookup",
+		"command_name": "ek-nslookup",
+		"description": "Make a DNS query",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "routeprint",
+		"command_name": "routeprint",
+		"description": "List IPv4 routes",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-uptime",
+		"command_name": "ek-uptime",
+		"description": "System boot time and uptime",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "useridletime",
+		"command_name": "useridletime",
+		"description": "Shows user idle time",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-whoami",
+		"command_name": "ek-whoami",
+		"description": "List whoami /all",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "alwayselevated",
+		"command_name": "alwayselevated",
+		"description": "Check Always Install Elevated registry setting",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "hijackablepath",
+		"command_name": "hijackablepath",
+		"description": "Check PATH for writable directories",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "tokenpriv",
+		"command_name": "tokenpriv",
+		"description": "List token privileges and vulnerable ones",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "unattendfiles",
+		"command_name": "unattendfiles",
+		"description": "Check for leftover unattend setup files",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "unquotedsvc",
+		"command_name": "unquotedsvc",
+		"description": "Check for unquoted service paths",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "vulndrivers",
+		"command_name": "vulndrivers",
+		"description": "Check for known vulnerable drivers (loldrivers.io)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-autologon",
+		"command_name": "ek-autologon",
+		"description": "Check for stored Autologon registry credentials",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-credmanager",
+		"command_name": "ek-credmanager",
+		"description": "Enumerate Windows Credential Manager entries",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "modautorun",
+		"command_name": "modautorun",
+		"description": "Check for modifiable autorun executables",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "modsvc",
+		"command_name": "modsvc",
+		"description": "Check for services with modifiable permissions (DACL)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "pshistory",
+		"command_name": "pshistory",
+		"description": "Check for PowerShell PSReadLine history file",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "uacstatus",
+		"command_name": "uacstatus",
+		"description": "Check UAC status, integrity level, and local admin group",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "privcheck_all",
+		"command_name": "privcheck_all",
+		"description": "Run all privilege escalation checks sequentially",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "smartscan",
+		"command_name": "smartscan",
+		"description": "Smart port scan",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "taskhound",
+		"command_name": "taskhound",
+		"description": "Collect scheduled tasks from remote systems",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "quser",
+		"command_name": "quser",
+		"description": "Query user sessions on a remote machine",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "nbtscan",
+		"command_name": "nbtscan",
+		"description": "NetBIOS name scanner",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "getsystem_token",
+		"command_name": "getsystem_token",
+		"description": "Elevate to SYSTEM via token impersonation",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "uac_sspi",
+		"command_name": "uac_sspi",
+		"description": "UAC bypass via SSPI Datagram Contexts",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "uac_regshellcmd",
+		"command_name": "uac_regshellcmd",
+		"description": "UAC bypass via ms-settings registry key",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "DCOMPotato",
+		"command_name": "DCOMPotato",
+		"description": "DCOMPotato - get SYSTEM via SeImpersonate privileges",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "printspoofer",
+		"command_name": "printspoofer",
+		"description": "LPE via Print Spooler (Named Pipe Impersonation)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "askcreds",
+		"command_name": "askcreds",
+		"description": "Prompt for credentials via Windows UI",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "cookie-monster",
+		"command_name": "cookie-monster",
+		"description": "Locate and copy cookie files for Edge/Chrome/Firefox",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "get-netntlm",
+		"command_name": "get-netntlm",
+		"description": "Retrieve NetNTLM hash for the current user",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-hashdump",
+		"command_name": "ek-hashdump",
+		"description": "Dump SAM hashes",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "lsadump_secrets",
+		"command_name": "lsadump_secrets",
+		"description": "Dump LSA secrets from SECURITY hive (requires SYSTEM)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "lsadump_sam",
+		"command_name": "lsadump_sam",
+		"description": "Dump SAM hashes via registry (requires admin)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "lsadump_cache",
+		"command_name": "lsadump_cache",
+		"description": "Dump cached domain credentials (DCC2, requires SYSTEM)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "nanodump",
+		"command_name": "nanodump",
+		"description": "Use syscalls to dump LSASS",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "underlaycopy",
+		"command_name": "underlaycopy",
+		"description": "Copy file using low-level NTFS access (MFT/Metadata)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-execute-assembly",
+		"command_name": "ek-execute-assembly",
+		"description": "Perform in-process .NET assembly execution",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "noconsolation",
+		"command_name": "noconsolation",
+		"description": "Run unmanaged EXE/DLL inside agent memory",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "inject-cfg",
+		"command_name": "inject-cfg",
+		"description": "Inject shellcode via CFG function pointer overwrite",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "inject-sec",
+		"command_name": "inject-sec",
+		"description": "Inject shellcode via section mapping",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "inject-poolparty",
+		"command_name": "inject-poolparty",
+		"description": "Inject shellcode via Pool Party technique",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "inject-32to64",
+		"command_name": "inject-32to64",
+		"description": "Inject x64 shellcode from WOW64 into native 64-bit process",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-psexec",
+		"command_name": "ek-psexec",
+		"description": "Spawn session on remote target via PsExec",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-scshell",
+		"command_name": "ek-scshell",
+		"description": "Spawn session on remote target via SCShell (fileless)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-winrm",
+		"command_name": "ek-winrm",
+		"description": "Use WinRM to execute commands on other systems",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "token_make",
+		"command_name": "token_make",
+		"description": "Create impersonation token from credentials",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "token_steal",
+		"command_name": "token_steal",
+		"description": "Steal access token from a process",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "runas-user",
+		"command_name": "runas-user",
+		"description": "Run command as another user using explicit credentials",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "runas-session",
+		"command_name": "runas-session",
+		"description": "Execute binary in another user session via IHxHelpPaneServer",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "firewallrule_add",
+		"command_name": "firewallrule_add",
+		"description": "Add inbound/outbound firewall rule via COM",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "screenshot_bof",
+		"command_name": "screenshot_bof",
+		"description": "Inline memory-based screenshot",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "sauroneye",
+		"command_name": "sauroneye",
+		"description": "Search directories for files with keywords (SauronEye BOF)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "findmodule",
+		"command_name": "findmodule",
+		"description": "Identify processes which have a certain module loaded",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "findprochandle",
+		"command_name": "findprochandle",
+		"description": "Identify processes with a specific process handle",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "psc",
+		"command_name": "psc",
+		"description": "Shows processes with established TCP and RDP connections",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "procfreeze_freeze",
+		"command_name": "procfreeze_freeze",
+		"description": "Freeze target process threads via WerFault PPL bypass",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "procfreeze_unfreeze",
+		"command_name": "procfreeze_unfreeze",
+		"description": "Unfreeze a previously frozen process",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "adwssearch",
+		"command_name": "adwssearch",
+		"description": "Executes ADWS query",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "badtakeover",
+		"command_name": "badtakeover",
+		"description": "Account takeover via BadSuccessor technique",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "dcsync-single",
+		"command_name": "dcsync-single",
+		"description": "Perform DCSync on a single user",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "dcsync-all",
+		"command_name": "dcsync-all",
+		"description": "Perform DCSync for all users in the domain",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ek-ldapsearch",
+		"command_name": "ek-ldapsearch",
+		"description": "Executes LDAP query",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "readlaps",
+		"command_name": "readlaps",
+		"description": "Read LAPS password for a computer",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "webdav_enable",
+		"command_name": "webdav_enable",
+		"description": "Enable WebDAV client service unprivileged",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "webdav_status",
+		"command_name": "webdav_status",
+		"description": "Determine if WebDAV is running on remote system",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_asreproasting",
+		"command_name": "kerbeus_asreproasting",
+		"description": "Perform AS-REP roasting",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_asktgt",
+		"command_name": "kerbeus_asktgt",
+		"description": "Retrieve a TGT",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_asktgs",
+		"command_name": "kerbeus_asktgs",
+		"description": "Retrieve a TGS",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_changepw",
+		"command_name": "kerbeus_changepw",
+		"description": "Reset a user's password from a supplied TGT",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_describe",
+		"command_name": "kerbeus_describe",
+		"description": "Parse and describe a ticket",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_dump",
+		"command_name": "kerbeus_dump",
+		"description": "Dump tickets",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_hash",
+		"command_name": "kerbeus_hash",
+		"description": "Calculate rc4_hmac, aes128_cts_hmac_sha1, aes256_cts_hmac_sha1 hashes",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_kerberoasting",
+		"command_name": "kerbeus_kerberoasting",
+		"description": "Perform Kerberoasting",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_klist",
+		"command_name": "kerbeus_klist",
+		"description": "List tickets",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_ptt",
+		"command_name": "kerbeus_ptt",
+		"description": "Submit a TGT",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_purge",
+		"command_name": "kerbeus_purge",
+		"description": "Purge tickets",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_renew",
+		"command_name": "kerbeus_renew",
+		"description": "Renew a TGT",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_s4u",
+		"command_name": "kerbeus_s4u",
+		"description": "Perform S4U constrained delegation abuse",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_cross_s4u",
+		"command_name": "kerbeus_cross_s4u",
+		"description": "Perform S4U constrained delegation abuse across domains",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_tgtdeleg",
+		"command_name": "kerbeus_tgtdeleg",
+		"description": "Retrieve a usable TGT for the current user without elevation by abusing the Kerberos GSS-API",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "kerbeus_triage",
+		"command_name": "kerbeus_triage",
+		"description": "List tickets in table format",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "certi_auth",
+		"command_name": "certi_auth",
+		"description": "Authenticate with certificate (PKINIT + UnPAC-the-hash)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "certi_enum",
+		"command_name": "certi_enum",
+		"description": "Enumerate CAs and templates in the AD",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "certi_request",
+		"command_name": "certi_request",
+		"description": "Request an enrollment certificate",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "certi_request_on_behalf",
+		"command_name": "certi_request_on_behalf",
+		"description": "Request certificate on behalf of another user (ESC3)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "certi_shadow",
+		"command_name": "certi_shadow",
+		"description": "Shadow Credentials attack - write KeyCredentialLink and get certificate",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "relay_http",
+		"command_name": "relay_http",
+		"description": "Inform on HTTP(S) service binding enforcement and HTTPS channel binding enforcement",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "relay_ldap",
+		"command_name": "relay_ldap",
+		"description": "Inform on LDAP signing enforcement and LDAPS channel binding enforcement",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "relay_mssql",
+		"command_name": "relay_mssql",
+		"description": "Inform on MSSQL service binding and channel binding enforcement",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "relay_smb",
+		"command_name": "relay_smb",
+		"description": "Inform on SMB2 signing enforcement",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_1434udp",
+		"command_name": "mssql_1434udp",
+		"description": "Obtain SQL Server connection information from 1434/UDP",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_adsi",
+		"command_name": "mssql_adsi",
+		"description": "Obtain ADSI creds from ADSI linked server",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_agentcmd",
+		"command_name": "mssql_agentcmd",
+		"description": "Execute a system command using agent jobs",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_agentstatus",
+		"command_name": "mssql_agentstatus",
+		"description": "Enumerate SQL Agent status and jobs",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_checkrpc",
+		"command_name": "mssql_checkrpc",
+		"description": "Enumerate RPC status of linked servers",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_clr",
+		"command_name": "mssql_clr",
+		"description": "Load and execute a .NET assembly in a stored procedure",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_columns",
+		"command_name": "mssql_columns",
+		"description": "Enumerate columns within a table",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_databases",
+		"command_name": "mssql_databases",
+		"description": "Enumerate SQL databases",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_disableclr",
+		"command_name": "mssql_disableclr",
+		"description": "Disable CLR integration",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_disableole",
+		"command_name": "mssql_disableole",
+		"description": "Disable OLE Automation Procedures",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_disablerpc",
+		"command_name": "mssql_disablerpc",
+		"description": "Disable RPC and RPC out on a linked server",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_disablexp",
+		"command_name": "mssql_disablexp",
+		"description": "Disable xp_cmdshell",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_enableclr",
+		"command_name": "mssql_enableclr",
+		"description": "Enable CLR integration",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_enableole",
+		"command_name": "mssql_enableole",
+		"description": "Enable OLE Automation Procedures",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_enablerpc",
+		"command_name": "mssql_enablerpc",
+		"description": "Enable RPC and RPC out on a linked server",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_enablexp",
+		"command_name": "mssql_enablexp",
+		"description": "Enable xp_cmdshell",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_impersonate",
+		"command_name": "mssql_impersonate",
+		"description": "Enumerate users that can be impersonated",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_info",
+		"command_name": "mssql_info",
+		"description": "Gather information about the SQL Server",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_links",
+		"command_name": "mssql_links",
+		"description": "Enumerate linked servers",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_olecmd",
+		"command_name": "mssql_olecmd",
+		"description": "Execute a system command using OLE automation procedures",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_query",
+		"command_name": "mssql_query",
+		"description": "Execute a custom SQL query",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_rows",
+		"command_name": "mssql_rows",
+		"description": "Get the count of rows in a table",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_search",
+		"command_name": "mssql_search",
+		"description": "Search a table for a column name",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_smb",
+		"command_name": "mssql_smb",
+		"description": "Coerce NetNTLM auth via xp_dirtree",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_tables",
+		"command_name": "mssql_tables",
+		"description": "Enumerate tables within a database",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_users",
+		"command_name": "mssql_users",
+		"description": "Enumerate users with database access",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_whoami",
+		"command_name": "mssql_whoami",
+		"description": "Gather logged in user, mapped user and roles from SQL server",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "mssql_xpcmd",
+		"command_name": "mssql_xpcmd",
+		"description": "Execute a system command via xp_cmdshell",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-users",
+		"command_name": "ldap_get-users",
+		"description": "List all users in the domain",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-computers",
+		"command_name": "ldap_get-computers",
+		"description": "List all computers in the domain",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-groups",
+		"command_name": "ldap_get-groups",
+		"description": "List all groups in the domain",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-usergroups",
+		"command_name": "ldap_get-usergroups",
+		"description": "List all groups a user is a member of",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-groupmembers",
+		"command_name": "ldap_get-groupmembers",
+		"description": "List all members of a group",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-object",
+		"command_name": "ldap_get-object",
+		"description": "Get all attributes of an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-domaininfo",
+		"command_name": "ldap_get-domaininfo",
+		"description": "Get domain information from rootDSE",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-maq",
+		"command_name": "ldap_get-maq",
+		"description": "Get machine account quota (ms-DS-MachineAccountQuota)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-writable",
+		"command_name": "ldap_get-writable",
+		"description": "Find objects you have write access to",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-delegation",
+		"command_name": "ldap_get-delegation",
+		"description": "Get delegation configuration for an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-uac",
+		"command_name": "ldap_get-uac",
+		"description": "Get UAC flags for an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-attribute",
+		"command_name": "ldap_get-attribute",
+		"description": "Get specific attribute values (comma-separated list supported)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-spn",
+		"command_name": "ldap_get-spn",
+		"description": "Get SPNs for an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-acl",
+		"command_name": "ldap_get-acl",
+		"description": "Get ACL/security descriptor for an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_get-rbcd",
+		"command_name": "ldap_get-rbcd",
+		"description": "Get RBCD configuration for an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-user",
+		"command_name": "ldap_add-user",
+		"description": "Add a user to the domain",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-computer",
+		"command_name": "ldap_add-computer",
+		"description": "Add a computer to the domain",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-group",
+		"command_name": "ldap_add-group",
+		"description": "Add a group to the domain",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-groupmember",
+		"command_name": "ldap_add-groupmember",
+		"description": "Add a member to a group",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-ou",
+		"command_name": "ldap_add-ou",
+		"description": "Add an organizational unit",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-sidhistory",
+		"command_name": "ldap_add-sidhistory",
+		"description": "Add a SID to an object's sidHistory attribute",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-spn",
+		"command_name": "ldap_add-spn",
+		"description": "Add an SPN to a object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-attribute",
+		"command_name": "ldap_add-attribute",
+		"description": "Add a value to an attribute",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-uac",
+		"command_name": "ldap_add-uac",
+		"description": "Add UAC flags to an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-delegation",
+		"command_name": "ldap_add-delegation",
+		"description": "Add a delegation SPN to an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-ace",
+		"command_name": "ldap_add-ace",
+		"description": "Add an ACE to an object's DACL",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-rbcd",
+		"command_name": "ldap_add-rbcd",
+		"description": "Add an RBCD delegation",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_set-password",
+		"command_name": "ldap_set-password",
+		"description": "Set/reset a user's password",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_set-spn",
+		"command_name": "ldap_set-spn",
+		"description": "Set/replace all SPNs on an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_set-delegation",
+		"command_name": "ldap_set-delegation",
+		"description": "Set/replace delegation SPNs",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_set-attribute",
+		"command_name": "ldap_set-attribute",
+		"description": "Set/replace an attribute value",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_set-uac",
+		"command_name": "ldap_set-uac",
+		"description": "Set UAC flags (replaces all)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_set-owner",
+		"command_name": "ldap_set-owner",
+		"description": "Set the owner of an object (requires WriteOwner)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_move-object",
+		"command_name": "ldap_move-object",
+		"description": "Move an object to a different OU",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-groupmember",
+		"command_name": "ldap_remove-groupmember",
+		"description": "Remove a member from a group",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-object",
+		"command_name": "ldap_remove-object",
+		"description": "Remove an object from the domain",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-spn",
+		"command_name": "ldap_remove-spn",
+		"description": "Remove an SPN from an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-delegation",
+		"command_name": "ldap_remove-delegation",
+		"description": "Remove a delegation SPN",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-attribute",
+		"command_name": "ldap_remove-attribute",
+		"description": "Remove an attribute or attribute value",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-uac",
+		"command_name": "ldap_remove-uac",
+		"description": "Remove UAC flags from an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-ace",
+		"command_name": "ldap_remove-ace",
+		"description": "Remove an ACE from an object's DACL",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-rbcd",
+		"command_name": "ldap_remove-rbcd",
+		"description": "Remove an RBCD delegation",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-genericall",
+		"command_name": "ldap_add-genericall",
+		"description": "Add a GenericAll ACE to an object's DACL",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-genericwrite",
+		"command_name": "ldap_add-genericwrite",
+		"description": "Add a GenericWrite ACE to an object's DACL",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-dcsync",
+		"command_name": "ldap_add-dcsync",
+		"description": "Add DCSync ACEs to an object's DACL",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-asreproastable",
+		"command_name": "ldap_add-asreproastable",
+		"description": "Make a user AS-REP roastable (set DONT_REQ_PREAUTH)",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-unconstrained",
+		"command_name": "ldap_add-unconstrained",
+		"description": "Enable unconstrained delegation on an object",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_add-constrained",
+		"command_name": "ldap_add-constrained",
+		"description": "Set/replace delegation SPNs",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-dcsync",
+		"command_name": "ldap_remove-dcsync",
+		"description": "Remove DCSync ACEs from an object's DACL",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-genericwrite",
+		"command_name": "ldap_remove-genericwrite",
+		"description": "Remove a GenericWrite ACE from an object's DACL",
+		"repo_url": "",
+		"custom_download_url": ""
+	},
+	{
+		"name": "ldap_remove-genericall",
+		"command_name": "ldap_remove-genericall",
+		"description": "Remove a GenericAll ACE from an object's DACL",
+		"repo_url": "",
+		"custom_download_url": ""
+	}
+]

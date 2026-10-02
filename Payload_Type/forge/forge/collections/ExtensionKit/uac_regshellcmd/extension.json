@@ -1,0 +1,29 @@
+{
+  "command_name": "uac_regshellcmd",
+  "help": "UAC bypass via ms-settings registry key",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "uac_regshellcmd.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "uac_regshellcmd.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "path",
+      "desc": "Path to agent binary",
+      "type": "z",
+      "optional": false
+    }
+  ]
+}

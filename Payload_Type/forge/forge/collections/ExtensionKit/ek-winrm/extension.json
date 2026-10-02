@@ -1,0 +1,58 @@
+{
+  "command_name": "ek-winrm",
+  "help": "Use WinRM to execute commands on other systems",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "winrm.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "Remote target",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "cmd",
+      "desc": "Command line",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "timeout",
+      "desc": "Timeout ms",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "background",
+      "desc": "Keep shell open",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "username",
+      "desc": "Username",
+      "type": "Z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "password",
+      "desc": "Password",
+      "type": "Z",
+      "optional": true,
+      "default": ""
+    }
+  ]
+}

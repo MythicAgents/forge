@@ -1,0 +1,24 @@
+{
+  "command_name": "kerbeus_changepw",
+  "help": "Reset a user's password from a supplied TGT",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "changepw.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "params",
+      "desc": "params",
+      "type": "z",
+      "optional": false
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "command_name": "sauroneye",
+  "help": "Search directories for files with keywords (SauronEye BOF)",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "sauroneye.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "sauroneye.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "cmdline",
+      "desc": "Command line",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "directories",
+      "desc": "Directories",
+      "type": "z",
+      "optional": true,
+      "default": "C:\\"
+    },
+    {
+      "name": "filetypes",
+      "desc": "Extensions",
+      "type": "z",
+      "optional": true,
+      "default": ".txt,.docx"
+    },
+    {
+      "name": "keywords",
+      "desc": "Keywords",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "search_contents",
+      "desc": "Search contents",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "max_filesize",
+      "desc": "Max size KB",
+      "type": "i",
+      "optional": true,
+      "default": 1024
+    },
+    {
+      "name": "system_dirs",
+      "desc": "System dirs",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "before_date",
+      "desc": "Before date",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "after_date",
+      "desc": "After date",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "check_macro",
+      "desc": "Check macros",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "show_date",
+      "desc": "Show dates",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "wildcard_attempts",
+      "desc": "Wildcard attempts",
+      "type": "i",
+      "optional": true,
+      "default": 1000
+    },
+    {
+      "name": "wildcard_size",
+      "desc": "Wildcard size KB",
+      "type": "i",
+      "optional": true,
+      "default": 200
+    },
+    {
+      "name": "wildcard_backtrack",
+      "desc": "Backtrack limit",
+      "type": "i",
+      "optional": true,
+      "default": 1000
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "command_name": "ldap_get-maq",
+  "help": "Get machine account quota (ms-DS-MachineAccountQuota)",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "get-maq.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "dc_fqdn",
+      "desc": "dc_fqdn",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg2",
+      "desc": "Parameter 2",
+      "type": "i",
+      "optional": true
+    }
+  ]
+}

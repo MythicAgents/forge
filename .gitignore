@@ -4,7 +4,8 @@ __pycache__/
 # Sphinx documentation
 docs/_build/
 # Environments
-collections/
+/collections/
+!Payload_Type/forge/forge/collections/ExtensionKit/**
 .env
 .venv
 main

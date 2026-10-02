@@ -1,0 +1,78 @@
+{
+  "command_name": "ldap_remove-genericall",
+  "help": "Remove a GenericAll ACE from an object's DACL",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "remove-ace.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "target",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "trustee",
+      "desc": "trustee",
+      "type": "i",
+      "optional": false
+    },
+    {
+      "name": "ace_type",
+      "desc": "ace_type",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "ace_index",
+      "desc": "ace_index",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "ou_path",
+      "desc": "ou_path",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "dc_fqdn",
+      "desc": "dc_fqdn",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg7",
+      "desc": "Parameter 7",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "arg8",
+      "desc": "Parameter 8",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg9",
+      "desc": "Parameter 9",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg10",
+      "desc": "Parameter 10",
+      "type": "i",
+      "optional": true
+    }
+  ]
+}

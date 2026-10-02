@@ -1,0 +1,70 @@
+{
+  "command_name": "ek-psexec",
+  "help": "Spawn session on remote target via PsExec",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "psexec.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "psexec.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "Remote target IP/hostname",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "binary",
+      "desc": "Binary file to upload",
+      "type": "b",
+      "optional": false
+    },
+    {
+      "name": "binary_name",
+      "desc": "Remote binary name",
+      "type": "z",
+      "optional": true,
+      "default": "random"
+    },
+    {
+      "name": "share",
+      "desc": "Share name",
+      "type": "z",
+      "optional": true,
+      "default": "ADMIN$"
+    },
+    {
+      "name": "svc_path",
+      "desc": "Service path",
+      "type": "z",
+      "optional": true,
+      "default": "C:\\Windows"
+    },
+    {
+      "name": "svc_name",
+      "desc": "Service name",
+      "type": "z",
+      "optional": true,
+      "default": "random"
+    },
+    {
+      "name": "svc_description",
+      "desc": "Service description",
+      "type": "z",
+      "optional": true,
+      "default": "random"
+    }
+  ]
+}

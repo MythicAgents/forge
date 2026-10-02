@@ -1,0 +1,36 @@
+{
+  "command_name": "relay_mssql",
+  "help": "Inform on MSSQL service binding and channel binding enforcement",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "mssql.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "host",
+      "desc": "host",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "port",
+      "desc": "port",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "database",
+      "desc": "database",
+      "type": "z",
+      "optional": true
+    }
+  ]
+}

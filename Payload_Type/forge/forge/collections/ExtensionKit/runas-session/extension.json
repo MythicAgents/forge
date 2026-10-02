@@ -1,0 +1,30 @@
+{
+  "command_name": "runas-session",
+  "help": "Execute binary in another user session via IHxHelpPaneServer",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "runas_sess_ihxexec.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "session_id",
+      "desc": "Session ID",
+      "type": "i",
+      "optional": false
+    },
+    {
+      "name": "filepath",
+      "desc": "File path",
+      "type": "Z",
+      "optional": false
+    }
+  ]
+}

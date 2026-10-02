@@ -1,0 +1,66 @@
+{
+  "command_name": "ek-ldapsearch",
+  "help": "Executes LDAP query",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "ldapsearch.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "query",
+      "desc": "LDAP filter",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "attributes",
+      "desc": "Attributes",
+      "type": "z",
+      "optional": true,
+      "default": "*"
+    },
+    {
+      "name": "count",
+      "desc": "Result max size",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "scope",
+      "desc": "Scope (1-3)",
+      "type": "i",
+      "optional": true,
+      "default": 3
+    },
+    {
+      "name": "dc",
+      "desc": "DC hostname",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "dn",
+      "desc": "Base DN",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "ldaps",
+      "desc": "Use LDAPS",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    }
+  ]
+}

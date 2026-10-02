@@ -1,0 +1,54 @@
+{
+  "command_name": "ldap_add-ou",
+  "help": "Add an organizational unit",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "add-ou.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "ou_name",
+      "desc": "ou_name",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "description",
+      "desc": "description",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "parent_ou",
+      "desc": "parent_ou",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "dc_fqdn",
+      "desc": "dc_fqdn",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg5",
+      "desc": "Parameter 5",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg6",
+      "desc": "Parameter 6",
+      "type": "i",
+      "optional": true
+    }
+  ]
+}

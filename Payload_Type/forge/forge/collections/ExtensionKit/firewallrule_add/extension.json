@@ -1,0 +1,56 @@
+{
+  "command_name": "firewallrule_add",
+  "help": "Add inbound/outbound firewall rule via COM",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "addfirewallrule.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "addfirewallrule.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "direction",
+      "desc": "Direction: in/out",
+      "type": "z",
+      "optional": true,
+      "default": "in"
+    },
+    {
+      "name": "port",
+      "desc": "Port number",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "rulename",
+      "desc": "Rule name",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "rulegroup",
+      "desc": "Rule group",
+      "type": "Z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "description",
+      "desc": "Rule description",
+      "type": "Z",
+      "optional": true,
+      "default": ""
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "command_name": "ldap_add-group",
+  "help": "Add a group to the domain",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "add-group.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "groupname",
+      "desc": "groupname",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "description",
+      "desc": "description",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "type",
+      "desc": "type",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "scope",
+      "desc": "scope",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "ou_path",
+      "desc": "ou_path",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "dc_fqdn",
+      "desc": "dc_fqdn",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg7",
+      "desc": "Parameter 7",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg8",
+      "desc": "Parameter 8",
+      "type": "i",
+      "optional": true
+    }
+  ]
+}

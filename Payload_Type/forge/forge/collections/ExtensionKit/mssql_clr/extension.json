@@ -1,0 +1,72 @@
+{
+  "command_name": "mssql_clr",
+  "help": "Load and execute a .NET assembly in a stored procedure",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "clr.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "hash",
+      "desc": "hash",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "database",
+      "desc": "database",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "linkedserver",
+      "desc": "linkedserver",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "impersonate",
+      "desc": "impersonate",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "user",
+      "desc": "user",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "password",
+      "desc": "password",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "server",
+      "desc": "server",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "dll_path",
+      "desc": "dll_path",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "function",
+      "desc": "function",
+      "type": "z",
+      "optional": false
+    }
+  ]
+}

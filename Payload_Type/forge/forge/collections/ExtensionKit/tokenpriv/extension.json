@@ -1,0 +1,22 @@
+{
+  "command_name": "tokenpriv",
+  "help": "List token privileges and vulnerable ones",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "tokenpriv.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "tokenpriv.x86.o"
+    }
+  ],
+  "arguments": []
+}

@@ -1,0 +1,24 @@
+{
+  "command_name": "kerbeus_cross_s4u",
+  "help": "Perform S4U constrained delegation abuse across domains",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "cross_s4u.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "params",
+      "desc": "params",
+      "type": "z",
+      "optional": false
+    }
+  ]
+}

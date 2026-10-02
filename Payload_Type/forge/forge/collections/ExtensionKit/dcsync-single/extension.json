@@ -1,0 +1,59 @@
+{
+  "command_name": "dcsync-single",
+  "help": "Perform DCSync on a single user",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "dcsync-single.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "Target user or DN",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "is_dn",
+      "desc": "Is DN (1=yes)",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "ou_path",
+      "desc": "OU path",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "dc_address",
+      "desc": "DC address",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "use_ldaps",
+      "desc": "Use LDAPS",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "only_nt",
+      "desc": "Only NTLM hashes",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    }
+  ]
+}

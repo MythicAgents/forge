@@ -1,0 +1,47 @@
+{
+  "command_name": "token_make",
+  "help": "Create impersonation token from credentials",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "token_make.x64.o"
+    },
+    {
+      "os": "windows",
+      "arch": "386",
+      "path": "token_make.x86.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "username",
+      "desc": "Username",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "password",
+      "desc": "Password",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "domain",
+      "desc": "Domain",
+      "type": "Z",
+      "optional": false
+    },
+    {
+      "name": "type",
+      "desc": "Logon type",
+      "type": "i",
+      "optional": false
+    }
+  ]
+}

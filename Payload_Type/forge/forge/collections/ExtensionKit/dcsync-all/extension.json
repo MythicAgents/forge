@@ -1,0 +1,53 @@
+{
+  "command_name": "dcsync-all",
+  "help": "Perform DCSync for all users in the domain",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "dcsync-all.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "ou_path",
+      "desc": "OU path",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "dc_address",
+      "desc": "DC address",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "use_ldaps",
+      "desc": "Use LDAPS",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "only_nt",
+      "desc": "Only NTLM hashes",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "only_users",
+      "desc": "Only User/Trust accounts",
+      "type": "i",
+      "optional": true,
+      "default": 0
+    }
+  ]
+}

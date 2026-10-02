@@ -1,0 +1,45 @@
+{
+  "command_name": "adwssearch",
+  "help": "Executes ADWS query",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "adws_search.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "query",
+      "desc": "ADWS filter",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "attributes",
+      "desc": "Attributes",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "dc",
+      "desc": "Target DC",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "dn",
+      "desc": "Base DN",
+      "type": "z",
+      "optional": true,
+      "default": ""
+    }
+  ]
+}

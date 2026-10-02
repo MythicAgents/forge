@@ -6,5 +6,9 @@
 	{
 		"name": "SliverArmory",
 		"type": "bof"
+	},
+	{
+		"name": "ExtensionKit",
+		"type": "bof"
 	}
 ]

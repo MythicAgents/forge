@@ -1,0 +1,48 @@
+{
+  "command_name": "ldap_get-object",
+  "help": "Get all attributes of an object",
+  "extension_author": "Adaptix-Framework",
+  "original_author": "Adaptix-Framework",
+  "repo_url": "https://github.com/Adaptix-Framework/Extension-Kit",
+  "version": "1.0.0",
+  "entrypoint": "go",
+  "files": [
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "get-object.x64.o"
+    }
+  ],
+  "arguments": [
+    {
+      "name": "target",
+      "desc": "target",
+      "type": "z",
+      "optional": false
+    },
+    {
+      "name": "ou_path",
+      "desc": "ou_path",
+      "type": "i",
+      "optional": true
+    },
+    {
+      "name": "dc_fqdn",
+      "desc": "dc_fqdn",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg4",
+      "desc": "Parameter 4",
+      "type": "z",
+      "optional": true
+    },
+    {
+      "name": "arg5",
+      "desc": "Parameter 5",
+      "type": "i",
+      "optional": true
+    }
+  ]
+}
