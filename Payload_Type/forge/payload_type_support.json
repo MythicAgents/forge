@@ -55,18 +55,18 @@
 		"execute_assembly_argument_parameter_name": "assembly_arguments",
 		"assembly_default_execution_method": "execute_assembly"
 	},
-  {
-    	"agent": "emeraldstrike",
-    	"bof_command": "execute_coff",
-    	"bof_file_parameter_name": "bof_file",
-    	"bof_argument_array_parameter_name": "arguments",
-    	"bof_entrypoint_parameter_name": "entrypoint",
-    	"inline_assembly_command": "",
-    	"inline_assembly_file_parameter_name": "",
-    	"inline_assembly_argument_parameter_name": "",
-   		"execute_assembly_command": "execute_assembly",
-    	"execute_assembly_file_parameter_name": "assembly_file",
-    	"execute_assembly_argument_parameter_name": "arguments",
-    	"assembly_default_execution_method": "execute_assembly"
-  }
+	{
+		"agent": "emeraldstrike",
+		"bof_command": "inline_execute",
+		"bof_file_parameter_name": "bof_file",
+		"bof_argument_array_parameter_name": "bof_arguments",
+		"bof_entrypoint_parameter_name": "",
+		"inline_assembly_command": "",
+		"inline_assembly_file_parameter_name": "",
+		"inline_assembly_argument_parameter_name": "",
+		"execute_assembly_command": "execute_assembly",
+		"execute_assembly_file_parameter_name": "assembly_file",
+		"execute_assembly_argument_parameter_name": "arguments",
+		"assembly_default_execution_method": "execute_assembly"
+	}
 ]
